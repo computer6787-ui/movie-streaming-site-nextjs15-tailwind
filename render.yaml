@@ -1,0 +1,31 @@
+# Render blueprint for Cinescope (the Next.js movie/series site).
+#
+# Deploy: push render.yaml plus your source, then in Render choose
+# "New +" -> "Blueprint" and point it at this repository.
+#
+# IMPORTANT: this deploys the WEB app only. The native-Chromium browser engine
+# in ./lumen-browser is an Electron desktop runtime and cannot run on Render.
+# On the deployed site the browser UI uses its iframe adapter, which is the
+# supported fallback and works fine as a normal web page.
+
+services:
+  - type: web
+    name: cinescope
+    runtime: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    healthCheckPath: /
+    # TMDB rejects requests that arrive without an identifying token, and the
+    # site throws a hard error when the key is missing, so fail the build
+    # loudly rather than deploying a site that 500s on every page.
+    envVars:
+      - key: NODE_VERSION
+        # Major version only, so Render resolves the latest 22.x LTS. Pinning an
+        # exact patch here would fail the build the day that patch is retired.
+        value: "22"
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_TMDB_API_KEY
+        sync: false # set this in the Render dashboard to your TMDB v3 key

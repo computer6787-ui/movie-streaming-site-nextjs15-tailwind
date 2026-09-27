@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        width: 300px;
+        margin: 0;
+        padding: 16px;
+        font: 14px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: #14141a;
+        color: #ededed;
+      }
+      h1 { font-size: 15px; margin: 0 0 4px; }
+      .sub { font-size: 12px; color: #9a9aa5; margin: 0 0 14px; }
+      .row {
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 10px 0; border-top: 1px solid #2a2a33;
+      }
+      .row span { font-size: 13px; }
+      .stats { font-size: 12px; color: #9a9aa5; margin-top: 12px; }
+      .stats b { color: #ededed; }
+      button {
+        background: #e11d48; color: #fff; border: 0; border-radius: 6px;
+        padding: 7px 12px; font-size: 12px; cursor: pointer; font-weight: 600;
+      }
+      button.ghost { background: #2a2a33; color: #ededed; }
+      .switch { position: relative; width: 40px; height: 22px; flex: 0 0 auto; }
+      .switch input { opacity: 0; width: 0; height: 0; }
+      .track {
+        position: absolute; inset: 0; background: #3a3a45;
+        border-radius: 22px; transition: background .2s;
+      }
+      .track::before {
+        content: ""; position: absolute; height: 18px; width: 18px;
+        left: 2px; top: 2px; background: #fff; border-radius: 50%;
+        transition: transform .2s;
+      }
+      .switch input:checked + .track { background: #e11d48; }
+      .switch input:checked + .track::before { transform: translateX(18px); }
+    </style>
+  </head>
+  <body>
+    <h1>Cinescope Ad Blocker</h1>
+    <p class="sub">Cinescope &amp; embedded player</p>
+
+    <div class="row">
+      <span>Blocking</span>
+      <label class="switch">
+        <input type="checkbox" id="enabled" checked />
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="row">
+      <span>EasyList filters</span>
+      <label class="switch">
+        <input type="checkbox" id="easylist" checked />
+        <span class="track"></span>
+      </label>
+    </div>
+
+    <div class="row">
+      <span>Refresh lists</span>
+      <button id="resync" class="ghost">Re-sync</button>
+    </div>
+
+    <div class="stats" id="stats">Loading&hellip;</div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

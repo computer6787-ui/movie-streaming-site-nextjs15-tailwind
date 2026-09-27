@@ -1,0 +1,40 @@
+{
+  "name": "lumen-browser",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Lumen — a premium browser interface that runs inside your browser. Honest about platform limits.",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "dev": "next dev -p 4310",
+    "build": "next build",
+    "start": "next start -p 4310",
+    "typecheck": "tsc --noEmit",
+    "typecheck:electron": "tsc --noEmit -p electron/tsconfig.json",
+    "lint": "next lint",
+    "smoke": "node --experimental-strip-types --no-warnings scripts/smoke-core.ts",
+    "smoke:native": "node --experimental-strip-types --no-warnings scripts/smoke-native.ts",
+    "test:real-site": "node scripts/build-electron.mjs && node test/real-site.mjs",
+    "build:electron": "node scripts/build-electron.mjs",
+    "electron:dev": "npm run build:electron && cross-env LUMEN_DEV_SERVER_URL=http://localhost:4310 electron .",
+    "electron:start": "npm run build:electron && electron ."
+  },
+  "dependencies": {
+    "lucide-react": "^0.475.0",
+    "motion": "^12.1.0",
+    "next": "15.2.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.0.9",
+    "@types/node": "^22.13.5",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8",
+    "esbuild": "^0.25.12",
+    "tailwindcss": "^4.0.9",
+    "typescript": "^5.7.3"
+  }
+}
