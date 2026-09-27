@@ -129,7 +129,7 @@ function Pagination({ type, page, totalPages, params }) {
           aria-current={p === page ? "page" : undefined}
           className={`rounded-lg px-3 py-1.5 text-[13px] font-medium transition-colors ${
             p === page
-              ? "bg-cine-500/15 text-cine-400 ring-1 ring-cine-500/40"
+              ? "bg-chit-500/15 text-chit-400 ring-1 ring-chit-500/40"
               : "text-ink-300 hover:bg-ink-800"
           }`}
         >

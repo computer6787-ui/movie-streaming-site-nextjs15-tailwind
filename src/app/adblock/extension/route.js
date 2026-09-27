@@ -141,7 +141,7 @@ export async function GET() {
       headers: {
         "Content-Type": "application/zip",
         "Content-Disposition":
-          'attachment; filename="cinescope-adblock-extension.zip"',
+          'attachment; filename="chitralipi-adblock-extension.zip"',
         "Cache-Control": "no-store",
       },
     });

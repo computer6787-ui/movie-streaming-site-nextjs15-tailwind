@@ -1,4 +1,4 @@
-# Ad blocking on Cinescope
+# Ad blocking on Chitralipi
 
 ## Why the site cannot fix this itself
 
@@ -8,7 +8,7 @@
 <iframe src="https://vidsrc.mov/embed/movie/{id}" />
 ```
 
-The same-origin policy means `cinescope` code cannot read or modify anything
+The same-origin policy means `chitralipi` code cannot read or modify anything
 inside that frame. The popunders, overlay click-bait and ad iframes are
 injected on `vidsrc.mov`, so **no server-side or React-side change can remove
 them**. Blocking has to happen in your browser, on your machine.
@@ -69,8 +69,8 @@ These hosts are listed in `browser-extension/rules.js` and in the userscript's
 
 ### 1. Tampermonkey userscript
 
-File: `public/adblock/cinescope-adblock.user.js`, served at
-`/adblock/cinescope-adblock.user.js`.
+File: `public/adblock/chitralipi-adblock.user.js`, served at
+`/adblock/chitralipi-adblock.user.js`.
 
 1. Install [Tampermonkey](https://www.tampermonkey.net/).
 2. Visit `/adblock` in the running app and click **Install Tampermonkey script**,
@@ -134,7 +134,7 @@ If you install only one thing, install this.
    Annoyances enabled (these are the defaults).
 3. **Settings → Filter assets**: leave the defaults enabled.
 
-No Cinescope-specific setup needed. It uses a real content-blocking engine
+No Chitralipi-specific setup needed. It uses a real content-blocking engine
 rather than request matching, so it also handles the cosmetic and scriptlet
 rules our extension skips.
 
@@ -144,4 +144,4 @@ rules our extension skips.
 - Clicking the player does not open a new tab or window.
 - No notification permission prompt appears.
 - `chrome://extensions` → the extension's service-worker console shows
-  `[Cinescope Ad Blocker] installed`.
+  `[Chitralipi Ad Blocker] installed`.

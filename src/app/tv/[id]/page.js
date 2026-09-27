@@ -73,7 +73,7 @@ export default async function TvPage({ params }) {
           </div>
 
           <div className="min-w-0 flex-1">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-cine-500/15 px-2.5 py-1 text-[10.5px] font-semibold tracking-wide text-cine-400 uppercase ring-1 ring-cine-500/30">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-chit-500/15 px-2.5 py-1 text-[10.5px] font-semibold tracking-wide text-chit-400 uppercase ring-1 ring-chit-500/30">
               <IconTv className="size-3" />
               Series
             </span>
@@ -283,7 +283,7 @@ async function EpisodeList({ showId, seasonNumber }) {
               <span className="h-12 w-20 shrink-0 rounded-md bg-ink-800" />
             )}
             <span className="min-w-0 flex-1">
-              <span className="block text-[11px] font-semibold text-cine-400">
+              <span className="block text-[11px] font-semibold text-chit-400">
                 E{ep.episode_number}
               </span>
               <span className="block truncate text-[12.5px] font-medium text-ink-100">

@@ -48,7 +48,7 @@ export default function SearchForm({ autoFocus = false, initialType = "all" }) {
       }}
       className="w-full"
     >
-      <div className="flex items-center gap-2 rounded-xl border border-ink-700 bg-ink-850/80 px-3 py-1.5 transition-colors focus-within:border-cine-500/70 focus-within:bg-ink-850">
+      <div className="flex items-center gap-2 rounded-xl border border-ink-700 bg-ink-850/80 px-3 py-1.5 transition-colors focus-within:border-chit-500/70 focus-within:bg-ink-850">
         <IconSearch className="size-4 shrink-0 text-ink-400" />
         <input
           type="search"
@@ -74,7 +74,7 @@ export default function SearchForm({ autoFocus = false, initialType = "all" }) {
         )}
         <button
           type="submit"
-          className="hidden shrink-0 rounded-lg bg-cine-500 px-3 py-1.5 text-[12.5px] font-semibold text-ink-950 transition-colors hover:bg-cine-400 sm:block"
+          className="hidden shrink-0 rounded-lg bg-chit-500 px-3 py-1.5 text-[12.5px] font-semibold text-ink-950 transition-colors hover:bg-chit-400 sm:block"
         >
           Search
         </button>
@@ -94,7 +94,7 @@ export default function SearchForm({ autoFocus = false, initialType = "all" }) {
               aria-pressed={active}
               className={`rounded-lg px-2.5 py-1 text-[12px] font-medium transition-colors ${
                 active
-                  ? "bg-cine-500/15 text-cine-400 ring-1 ring-cine-500/40"
+                  ? "bg-chit-500/15 text-chit-400 ring-1 ring-chit-500/40"
                   : "text-ink-400 hover:bg-ink-800 hover:text-ink-200"
               }`}
             >

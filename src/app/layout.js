@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 
 export const metadata = {
   title: {
-    default: "Cinescope — Movies & Series",
-    template: "%s | Cinescope",
+    default: "Chitralipi — Movies & Series",
+    template: "%s | Chitralipi",
   },
   description:
     "Stream movies and series. Browse by genre, sort by rating or popularity, and pick up where you left off.",
@@ -31,14 +31,14 @@ export default function RootLayout({ children }) {
         <main className="flex-1">{children}</main>
         <footer className="mt-16 border-t border-ink-700/70 py-8">
           <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 text-[11.5px] text-ink-500 sm:flex-row sm:justify-between sm:px-6">
-            <p>Cinescope — movie and series browser.</p>
+            <p>Chitralipi — movie and series browser.</p>
             <p>
               Metadata &amp; artwork from{" "}
               <a
                 href="https://www.themoviedb.org"
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-ink-400 underline underline-offset-2 transition-colors hover:text-cine-400"
+                className="text-ink-400 underline underline-offset-2 transition-colors hover:text-chit-400"
               >
                 TMDB
               </a>

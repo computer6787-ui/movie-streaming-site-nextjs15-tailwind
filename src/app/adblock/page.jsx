@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const SCRIPT_URL = "/adblock/cinescope-adblock.user.js";
+const SCRIPT_URL = "/adblock/chitralipi-adblock.user.js";
 const REPO_EXT = "browser-extension";
 
 const OPTIONS = [
@@ -12,7 +12,7 @@ const OPTIONS = [
     tag: "Recommended",
     name: "Tampermonkey userscript",
     blurb:
-      "One click, no build step. Kills popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Cinescope and inside the player.",
+      "One click, no build step. Kills popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Chitralipi and inside the player.",
     steps: [
       "Install Tampermonkey for your browser.",
       "Click the button below - Tampermonkey reads the script header and asks to install it.",
@@ -25,7 +25,7 @@ const OPTIONS = [
   {
     id: "extension",
     tag: "Network-level",
-    name: "Cinescope Ad Blocker extension",
+    name: "Chitralipi Ad Blocker extension",
     blurb:
       "A Manifest V3 extension that blocks ad requests before they leave your browser, using uBlock's EasyList lists plus rules targeting this exact player. The only option that stops the requests themselves.",
     steps: [
@@ -58,12 +58,12 @@ const OPTIONS = [
     tag: "Best coverage",
     name: "uBlock Origin",
     blurb:
-      "The reference implementation. If you only install one thing, install this - it already covers everything Cinescope shows, plus far more.",
+      "The reference implementation. If you only install one thing, install this - it already covers everything Chitralipi shows, plus far more.",
     steps: [
       "Install uBlock Origin from your browser's official store.",
       "Settings > Filter lists - keep EasyList, EasyPrivacy and Fanboy's Annoyances enabled.",
       "Settings > Filter assets - leave the defaults enabled.",
-      "No Cinescope-specific setup is needed.",
+      "No Chitralipi-specific setup is needed.",
     ],
     external: true,
     externalUrl: "https://ublockorigin.com/",
@@ -206,7 +206,7 @@ export default function AdBlockPage() {
             <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
               @match
             </code>{" "}
-            header. If you host Cinescope on your own domain, add a{" "}
+            header. If you host Chitralipi on your own domain, add a{" "}
             <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
               @match https://your-domain/*
             </code>{" "}

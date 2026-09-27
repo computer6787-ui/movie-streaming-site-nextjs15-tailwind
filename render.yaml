@@ -1,4 +1,4 @@
-# Render blueprint for Cinescope (the Next.js movie/series site).
+# Render blueprint for Chitralipi (the Next.js movie/series site).
 #
 # Deploy: push render.yaml plus your source, then in Render choose
 # "New +" -> "Blueprint" and point it at this repository.
@@ -10,7 +10,7 @@
 
 services:
   - type: web
-    name: cinescope
+    name: chitralipi
     runtime: node
     plan: free
     region: oregon

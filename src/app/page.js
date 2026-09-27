@@ -25,7 +25,7 @@ export default async function Home() {
           <div className="absolute inset-0 bg-linear-to-t from-ink-950 via-ink-950/85 to-ink-950/40" />
 
           <div className="relative px-6 py-14 sm:px-10 sm:py-20">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-cine-500/15 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-cine-400 uppercase ring-1 ring-cine-500/30">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-chit-500/15 px-2.5 py-1 text-[11px] font-semibold tracking-wide text-chit-400 uppercase ring-1 ring-chit-500/30">
               Trending this week
             </span>
             <h1 className="mt-3 max-w-2xl text-3xl font-bold tracking-tight text-white sm:text-5xl">

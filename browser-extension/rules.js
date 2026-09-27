@@ -1,5 +1,5 @@
 /* =====================================================================
- * Cinescope Ad Blocker - rule definitions
+ * Chitralipi Ad Blocker - rule definitions
  *
  * rules.json holds the same data as STATIC_RULES (kept in sync manually)
  * so the extension can also load as a fully static fallback. background.js
@@ -20,7 +20,7 @@ export const RULE_ID_START = 100000;
 export const MAX_DYNAMIC_RULES = 5000;
 
 /** Alarm name for the periodic list refresh. */
-export const REFRESH_ALARM = "cinescope-refresh";
+export const REFRESH_ALARM = "chitralipi-refresh";
 
 /** Hosts that only ever serve advertising / tracking on this site. */
 export const AD_HOSTS = [

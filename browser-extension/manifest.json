@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Cinescope Ad Blocker",
+  "name": "Chitralipi Ad Blocker",
   "version": "1.0.0",
-  "description": "Blocks ads, popunders and click-bait on Cinescope and the embedded player, using uBlock's EasyList.",
+  "description": "Blocks ads, popunders and click-bait on Chitralipi and the embedded player, using uBlock's EasyList.",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -22,6 +22,6 @@
   },
   "action": {
     "default_popup": "popup.html",
-    "default_title": "Cinescope Ad Blocker"
+    "default_title": "Chitralipi Ad Blocker"
   }
 }

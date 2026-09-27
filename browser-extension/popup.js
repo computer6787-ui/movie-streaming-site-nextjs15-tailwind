@@ -1,4 +1,4 @@
-/* Cinescope Ad Blocker - popup controller */
+/* Chitralipi Ad Blocker - popup controller */
 
 function send(type) {
   return new Promise((resolve) => {

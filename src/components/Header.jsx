@@ -11,10 +11,10 @@ export default function Header() {
           href="/"
           className="flex shrink-0 items-center gap-2 text-[15px] font-bold tracking-tight"
         >
-          <span className="grid size-7 place-items-center rounded-lg bg-linear-to-br from-cine-500 to-cine-600 text-ink-950">
+          <span className="grid size-7 place-items-center rounded-lg bg-linear-to-br from-chit-500 to-chit-600 text-ink-950">
             <IconGrid className="size-4" />
           </span>
-          <span className="text-ink-100">Cinescope</span>
+          <span className="text-ink-100">Chitralipi</span>
         </Link>
 
         {/* Desktop: inline search. Mobile: the icon links to /search.

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Cinescope design tokens.
+ * Chitralipi design tokens.
  *
  * One dark, cinematic palette. Light mode is intentionally not provided: the
  * whole surface is backdrops and posters, and a white sheet behind artwork
@@ -22,9 +22,9 @@
   --color-ink-200: #c7cddb;
   --color-ink-100: #e8ebf2;
 
-  --color-cine-400: #7dd3fc;
-  --color-cine-500: #38bdf8;
-  --color-cine-600: #0ea5e9;
+  --color-chit-400: #7dd3fc;
+  --color-chit-500: #38bdf8;
+  --color-chit-600: #0ea5e9;
 
   --color-gold-400: #fbbf24;
   --color-gold-500: #f59e0b;
@@ -59,13 +59,13 @@
 
   /* The app is dark-only, so focus rings must not vanish. */
   :focus-visible {
-    outline: 2px solid var(--color-cine-500);
+    outline: 2px solid var(--color-chit-500);
     outline-offset: 2px;
     border-radius: 0.25rem;
   }
 
   ::selection {
-    background-color: color-mix(in oklab, var(--color-cine-500) 35%, transparent);
+    background-color: color-mix(in oklab, var(--color-chit-500) 35%, transparent);
   }
 }
 

@@ -49,7 +49,7 @@ export default function FilterBar({ mediaType, total, resultLabel = "titles" }) 
               aria-pressed={active}
               className={`rounded-lg px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 active
-                  ? "bg-cine-500/15 text-cine-400 ring-1 ring-cine-500/40"
+                  ? "bg-chit-500/15 text-chit-400 ring-1 ring-chit-500/40"
                   : "bg-ink-850 text-ink-300 ring-1 ring-ink-700 hover:bg-ink-800 hover:text-ink-100"
               }`}
             >
@@ -67,7 +67,7 @@ export default function FilterBar({ mediaType, total, resultLabel = "titles" }) 
           aria-pressed={activeGenre === ""}
           className={`rounded-lg px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
             activeGenre === ""
-              ? "bg-cine-500/15 text-cine-400 ring-1 ring-cine-500/40"
+              ? "bg-chit-500/15 text-chit-400 ring-1 ring-chit-500/40"
               : "bg-ink-850 text-ink-300 ring-1 ring-ink-700 hover:bg-ink-800 hover:text-ink-100"
           }`}
         >
@@ -84,7 +84,7 @@ export default function FilterBar({ mediaType, total, resultLabel = "titles" }) 
               aria-pressed={active}
               className={`rounded-lg px-3 py-1.5 text-[12.5px] font-medium transition-colors ${
                 active
-                  ? "bg-cine-500/15 text-cine-400 ring-1 ring-cine-500/40"
+                  ? "bg-chit-500/15 text-chit-400 ring-1 ring-chit-500/40"
                   : "bg-ink-850 text-ink-300 ring-1 ring-ink-700 hover:bg-ink-800 hover:text-ink-100"
               }`}
             >

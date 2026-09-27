@@ -26,7 +26,7 @@ export default function PosterCard({ item, mediaType, className = "", priority =
       }`}
       aria-label={`${title}${year ? `, ${year}` : ""}`}
     >
-      <div className="card-hover relative aspect-2/3 overflow-hidden rounded-xl bg-ink-800 ring-1 ring-ink-700/60 group-hover:ring-2 group-hover:ring-cine-500/70 group-hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.85)]">
+      <div className="card-hover relative aspect-2/3 overflow-hidden rounded-xl bg-ink-800 ring-1 ring-ink-700/60 group-hover:ring-2 group-hover:ring-chit-500/70 group-hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.85)]">
         {poster ? (
           <img
             src={poster}
@@ -45,7 +45,7 @@ export default function PosterCard({ item, mediaType, className = "", priority =
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950/85 via-transparent to-ink-950/25" />
 
         {kind === "tv" && (
-          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 rounded-md bg-ink-950/80 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-cine-400 backdrop-blur-sm">
+          <span className="absolute top-1.5 left-1.5 inline-flex items-center gap-1 rounded-md bg-ink-950/80 px-1.5 py-0.5 text-[10px] font-semibold tracking-wide text-chit-400 backdrop-blur-sm">
             <IconTv className="size-3" />
             SERIES
           </span>
@@ -78,7 +78,7 @@ export function Shelf({ title, href, items, mediaType }) {
         {href && (
           <Link
             href={href}
-            className="shrink-0 text-[12px] font-medium text-cine-400 transition-colors hover:text-cine-300"
+            className="shrink-0 text-[12px] font-medium text-chit-400 transition-colors hover:text-chit-300"
           >
             See all →
           </Link>

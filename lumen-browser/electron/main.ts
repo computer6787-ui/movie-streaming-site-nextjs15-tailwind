@@ -3,7 +3,7 @@
  *
  * Layering, matching the architecture the renderer already expects:
  *
- *   Existing CineScope UI (Next.js, unchanged)
+ *   Existing Chitralipi UI (Next.js, unchanged)
  *      -> BrowserEngineAdapter ("chromium")
  *         -> IPC (preload)
  *            -> WebContentsView  <- the real Chromium renderer
@@ -87,7 +87,7 @@ function viewFor(tabId: string): WebContentsView {
     // Ask the UI to open this as a real tab. It inherits the same session and
     // the same guards, so nothing escapes filtering.
     //
-    // Note the target: the *shell* window is the renderer running the CineScope
+    // Note the target: the *shell* window is the renderer running the Chitralipi
     // UI, so events must be sent there, not to the page's own webContents.
     shellWindow?.webContents.send("tab:open-new", { url: popupUrl });
   });

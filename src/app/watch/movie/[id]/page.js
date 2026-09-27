@@ -78,7 +78,7 @@ export function AdblockNote() {
     <p className="mt-6 text-[12px] text-ink-500">
       Playback is provided by an embedded third-party player. If you see popups or fake
       download buttons,{" "}
-      <Link href="/adblock" className="text-cine-400 underline underline-offset-2">
+      <Link href="/adblock" className="text-chit-400 underline underline-offset-2">
         install the ad blocker
       </Link>
       .

@@ -3,7 +3,7 @@
  *
  * Launches the actual built main.cjs and reports only what Electron actually
  * did. No fixture server, no mocks, and no changes to the app itself: we attach
- * over the DevTools protocol and drive the CineScope UI the way a user does, so
+ * over the DevTools protocol and drive the Chitralipi UI the way a user does, so
  * the whole real chain runs -- store -> adapter -> preload IPC -> WebContentsView
  * -> real network -> guards.
  */
@@ -82,7 +82,7 @@ async function attach() {
     const res = await fetch(`http://127.0.0.1:${CDP_PORT}/json/list`).catch(() => null);
     if (res?.ok) {
       const targets = await res.json();
-      // The app exposes MORE than one page target: the CineScope shell, plus a
+      // The app exposes MORE than one page target: the Chitralipi shell, plus a
       // WebContentsView per open tab. Attaching to whichever came first picked
       // up a restored tab and reported a false "no bridge / no address bar".
       // Pin to the shell by its dev-server origin.

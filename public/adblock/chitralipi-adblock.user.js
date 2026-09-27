@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         Cinescope Ad Blocker
-// @namespace    https://github.com/cinescope/cinescope
+// @name         Chitralipi Ad Blocker
+// @namespace    https://github.com/chitralipi/chitralipi
 // @version      1.0.0
-// @description  Blocks popups/popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Cinescope and inside the embedded player.
-// @author       Cinescope
+// @description  Blocks popups/popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Chitralipi and inside the embedded player.
+// @author       Chitralipi
 // @match        http://localhost:3000/*
 // @match        http://127.0.0.1:3000/*
 // @match        https://*.vercel.app/*
@@ -34,8 +34,8 @@
 // ---------------------------------------------------------------------
 // HOW TO INSTALL
 //   1. Install Tampermonkey (Chrome/Edge/Firefox).
-//   2. Open  http://localhost:3000/adblock/cinescope-adblock.user.js
-//      (or your deployed /adblock/cinescope-adblock.user.js)
+//   2. Open  http://localhost:3000/adblock/chitralipi-adblock.user.js
+//      (or your deployed /adblock/chitralipi-adblock.user.js)
 //   3. Tampermonkey detects the block above and offers to install it.
 //   4. If you deploy somewhere other than *.vercel.app, add that domain
 //      to the @match list and reinstall.
@@ -398,7 +398,7 @@
       var t = s.textContent || "";
       if (AD_FRAME_SRC.test(t) || /position\s*:\s*fixed[\s\S]{0,200}z-index\s*:\s*(9\d{3}|[1-9]\d{5,})/i.test(t)) {
         s.dataset.csNoAd = "1";
-        s.textContent = "/* removed by Cinescope Ad Blocker */";
+        s.textContent = "/* removed by Chitralipi Ad Blocker */";
       }
     }
   }
@@ -416,7 +416,7 @@
   try {
     if (window.navigator && "serviceWorker" in navigator) {
       navigator.serviceWorker.register = function () {
-        return Promise.reject(new Error("blocked by Cinescope Ad Blocker"));
+        return Promise.reject(new Error("blocked by Chitralipi Ad Blocker"));
       };
     }
   } catch (e) {}
@@ -467,5 +467,5 @@
   window.addEventListener("load", start);
   setInterval(schedule, 1500);
 
-  console.info("[Cinescope Ad Blocker] active in", location.hostname);
+  console.info("[Chitralipi Ad Blocker] active in", location.hostname);
 })();

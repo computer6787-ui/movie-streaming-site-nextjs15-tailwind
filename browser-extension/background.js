@@ -1,5 +1,5 @@
 /* =====================================================================
- * Cinescope Ad Blocker - MV3 service worker
+ * Chitralipi Ad Blocker - MV3 service worker
  *
  * Responsibilities
  *   1. Static declarativeNetRequest rules live in rules.json (no remote code).
@@ -148,7 +148,7 @@ async function rebuildAll() {
   // loudly instead of silently claiming we installed a rule set we did not.
   if (dynamic.length > MAX_DYNAMIC_RULES) {
     const msg = `Too many rules (${dynamic.length} > ${MAX_DYNAMIC_RULES}). Blocking disabled.`;
-    console.warn("[Cinescope Ad Blocker]", msg);
+    console.warn("[Chitralipi Ad Blocker]", msg);
     await chrome.storage.sync.set({ ruleCount: 0, staticActive: 0, lastError: msg });
     return;
   }
@@ -157,7 +157,7 @@ async function rebuildAll() {
     await chrome.declarativeNetRequest.updateDynamicRules({ addRules: dynamic });
   } catch (e) {
     const msg = (e && e.message) || String(e);
-    console.warn("[Cinescope Ad Blocker] DNR update failed", e);
+    console.warn("[Chitralipi Ad Blocker] DNR update failed", e);
     await chrome.storage.sync.set({ ruleCount: 0, staticActive: 0, lastError: msg });
     return;
   }
@@ -209,7 +209,7 @@ chrome.alarms.create(REFRESH_ALARM, { periodInMinutes: 360 });
 
 chrome.runtime.onInstalled.addListener(async (d) => {
   await rebuildAll();
-  console.info("[Cinescope Ad Blocker] installed:", d.reason);
+  console.info("[Chitralipi Ad Blocker] installed:", d.reason);
 });
 
 chrome.runtime.onStartup.addListener(async () => {
