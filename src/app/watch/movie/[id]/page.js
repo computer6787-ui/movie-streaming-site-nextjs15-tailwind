@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import PlayerFrame from "@/components/PlayerFrame";
 import { IconArrowLeft } from "@/components/icons";
 import { movieEmbedUrl } from "@/lib/embed";
-import { movieDetail, titleOf } from "@/lib/tmdb";
+import { IMG, movieDetail, titleOf } from "@/lib/tmdb";
 
 export const revalidate = 3600;
 
@@ -23,37 +24,43 @@ export default async function WatchMovie({ params }) {
   if (!movie) notFound();
 
   const title = titleOf(movie);
+  // Built once: the previous code called the builder twice in the same
+  // expression, and the src is now passed to a client component.
+  const src = movieEmbedUrl(id);
+  const poster = IMG.backdrop(movie.backdrop_path);
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="shell pt-(--header-h) pb-10">
+      <div className="flex flex-wrap items-end justify-between gap-4 pt-10 sm:pt-14">
         <div className="min-w-0">
-          <h1 className="truncate text-lg font-semibold tracking-tight">{title}</h1>
+          <Link
+            href={`/movie/${id}`}
+            className="group inline-flex items-center gap-1.5 text-[12.5px] text-ink-400 transition-colors duration-200 hover:text-ink-100"
+          >
+            <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:-translate-x-0.5">
+              <IconArrowLeft className="size-3.5" />
+            </span>
+            Back to movie
+          </Link>
+          <h1 className="display mt-2 truncate text-[26px] text-ink-100 sm:text-[34px]">
+            {title}
+          </h1>
           {movie.release_date && (
-            <p className="mt-0.5 text-[12.5px] text-ink-400">
+            <p className="mt-1 text-[12.5px] text-ink-400 tnum">
               {movie.release_date.slice(0, 4)}
             </p>
           )}
         </div>
-        <Link
-          href={`/movie/${id}`}
-          className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-ink-850 px-3 py-2 text-[12.5px] font-medium text-ink-200 ring-1 ring-ink-700 transition-colors hover:bg-ink-800 hover:text-white"
-        >
-          <IconArrowLeft className="size-4" />
-          Back to movie
-        </Link>
+        <p className="eyebrow shrink-0 text-chit-600">Now screening</p>
       </div>
 
-      <div className="mt-4 aspect-video w-full overflow-hidden rounded-xl bg-black ring-1 ring-ink-700">
-        {movieEmbedUrl(id) ? (
-          <iframe
-            src={movieEmbedUrl(id)}
+      <div className="mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
+        {src ? (
+          <PlayerFrame
+            src={src}
             title={title}
-            className="size-full"
-            allowFullScreen
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-            referrerPolicy="origin-when-cross-origin"
-            loading="lazy"
+            poster={poster}
+            label={`Loading ${title}`}
           />
         ) : (
           <div className="grid size-full place-items-center p-6 text-center text-[13px] text-ink-400">
@@ -63,9 +70,10 @@ export default async function WatchMovie({ params }) {
       </div>
 
       {movie.overview && (
-        <p className="mt-4 max-w-3xl text-[13px] leading-relaxed text-ink-300">
-          {movie.overview}
-        </p>
+        <div className="mt-8">
+          <h2 className="eyebrow text-chit-600">Synopsis</h2>
+          <p className="prose-measure mt-3 text-[13.5px] text-ink-300">{movie.overview}</p>
+        </div>
       )}
 
       <AdblockNote />
@@ -75,7 +83,7 @@ export default async function WatchMovie({ params }) {
 
 export function AdblockNote() {
   return (
-    <p className="mt-6 text-[12px] text-ink-500">
+    <p className="mt-10 max-w-[70ch] text-[12px] leading-relaxed text-ink-500">
       Playback is provided by an embedded third-party player. If you see popups or fake
       download buttons,{" "}
       <Link href="/adblock" className="text-chit-400 underline underline-offset-2">

@@ -1,5 +1,7 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import Header from "@/components/Header";
+import { IconGrid } from "@/components/icons";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +12,18 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+/**
+ * The display face. A high-contrast editorial serif used only for titles,
+ * numbers and section heads - it carries the "lobby poster" feel that a
+ * single sans-serif system cannot.
+ */
+const display = Instrument_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: "400",
+  display: "swap",
 });
 
 export const metadata = {
@@ -25,20 +39,26 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} flex min-h-dvh flex-col antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${display.variable} flex min-h-dvh flex-col`}
       >
         <Header />
-        <main className="flex-1">{children}</main>
-        <footer className="mt-16 border-t border-ink-700/70 py-8">
-          <div className="mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 text-[11.5px] text-ink-500 sm:flex-row sm:justify-between sm:px-6">
-            <p>Chitralipi — movie and series browser.</p>
-            <p>
+        <main className="relative z-10 flex-1">{children}</main>
+        <div className="noise-overlay" aria-hidden="true" />
+        <footer className="relative z-10 mt-24 border-t border-ink-800/80">
+          <div className="shell flex flex-col items-center gap-6 py-10 text-center sm:flex-row sm:justify-between sm:text-left">
+            <Link href="/" className="flex items-center gap-2.5">
+              <span className="grid size-8 place-items-center rounded-lg bg-linear-to-br from-chit-400 to-chit-600 text-ink-950">
+                <IconGrid className="size-4.5" />
+              </span>
+              <span className="font-display text-[17px] tracking-tight text-ink-100">Chitralipi</span>
+            </Link>
+            <p className="max-w-md text-[11.5px] leading-relaxed text-ink-400">
               Metadata &amp; artwork from{" "}
               <a
                 href="https://www.themoviedb.org"
                 target="_blank"
                 rel="noreferrer noopener"
-                className="text-ink-400 underline underline-offset-2 transition-colors hover:text-chit-400"
+                className="text-ink-300 underline underline-offset-2 transition-colors hover:text-chit-400"
               >
                 TMDB
               </a>

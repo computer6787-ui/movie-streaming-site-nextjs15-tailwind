@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import PlayerFrame from "@/components/PlayerFrame";
 import { IconArrowLeft, IconChevronRight } from "@/components/icons";
 import { tvEmbedUrl } from "@/lib/embed";
-import { seasonDetail, titleOf, tvDetail } from "@/lib/tmdb";
+import { IMG, seasonDetail, titleOf, tvDetail } from "@/lib/tmdb";
 
 export const revalidate = 3600;
 
@@ -52,35 +53,38 @@ export default async function WatchEpisode({ params }) {
   const title = show ? titleOf(show) : "Series";
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="shell pt-(--header-h) pb-10">
+      <div className="flex flex-wrap items-end justify-between gap-4 pt-10 sm:pt-14">
         <div className="min-w-0">
-          <h1 className="truncate text-lg font-semibold tracking-tight">{title}</h1>
-          <p className="mt-0.5 text-[12.5px] text-ink-400">
-            Season {seasonNumber}, Episode {episodeNumber}
+          <Link
+            href={`/tv/${id}`}
+            className="group inline-flex items-center gap-1.5 text-[12.5px] text-ink-400 transition-colors duration-200 hover:text-ink-100"
+          >
+            <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:-translate-x-0.5">
+              <IconArrowLeft className="size-3.5" />
+            </span>
+            Back to series
+          </Link>
+          <h1 className="display mt-2 truncate text-[26px] text-ink-100 sm:text-[34px]">
+            {title}
+          </h1>
+          <p className="mt-1 text-[12.5px] text-ink-400">
+            <span className="tnum">
+              Season {seasonNumber}, Episode {episodeNumber}
+            </span>
             {current?.name ? ` · ${current.name}` : ""}
           </p>
         </div>
-        <Link
-          href={`/tv/${id}`}
-          className="inline-flex shrink-0 items-center gap-2 rounded-lg bg-ink-850 px-3 py-2 text-[12.5px] font-medium text-ink-200 ring-1 ring-ink-700 transition-colors hover:bg-ink-800 hover:text-white"
-        >
-          <IconArrowLeft className="size-4" />
-          Back to series
-        </Link>
+        <p className="eyebrow shrink-0 text-chit-600">Now screening</p>
       </div>
 
-      <div className="mt-4 aspect-video w-full overflow-hidden rounded-xl bg-black ring-1 ring-ink-700">
+      <div className="mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
         {src ? (
-          <iframe
-            key={src}
+          <PlayerFrame
             src={src}
             title={`${title} — Season ${seasonNumber}, Episode ${episodeNumber}`}
-            className="size-full"
-            allowFullScreen
-            allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
-            referrerPolicy="origin-when-cross-origin"
-            loading="lazy"
+            poster={IMG.backdrop(show?.backdrop_path)}
+            label={`Loading S${seasonNumber} · E${episodeNumber}`}
           />
         ) : (
           <div className="grid size-full place-items-center p-6 text-center text-[13px] text-ink-400">
@@ -90,23 +94,26 @@ export default async function WatchEpisode({ params }) {
       </div>
 
       {current?.overview && (
-        <p className="mt-4 max-w-3xl text-[13px] leading-relaxed text-ink-300">
-          {current.overview}
-        </p>
+        <div className="mt-8">
+          <h2 className="eyebrow text-chit-600">Synopsis</h2>
+          <p className="prose-measure mt-3 text-[13.5px] text-ink-300">{current.overview}</p>
+        </div>
       )}
 
       {(prev || next) && (
-        <nav className="mt-6 flex items-center justify-between gap-3" aria-label="Episode navigation">
+        <nav className="mt-10 grid gap-3 sm:grid-cols-2" aria-label="Episode navigation">
           {prev ? (
             <Link
               href={`/watch/tv/${id}/${seasonNumber}/${prev.episode_number}`}
-              className="group min-w-0 rounded-xl bg-ink-900 p-3 ring-1 ring-ink-700 transition-colors hover:bg-ink-850"
+              className="group plate min-w-0 rounded-xl p-4 transition-[transform,border-color] duration-200 ease-[var(--ease-emphasised)] hover:-translate-y-0.5 hover:border-ink-600"
             >
-              <span className="flex items-center gap-1 text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
-                <IconChevronRight className="size-3 rotate-180" />
+              <span className="flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.12em] text-ink-400 uppercase transition-colors duration-200 group-hover:text-chit-400">
+                <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:-translate-x-0.5">
+                  <IconChevronRight className="size-3 rotate-180" />
+                </span>
                 Previous
               </span>
-              <span className="mt-1 block truncate text-[12.5px] text-ink-100">
+              <span className="mt-1.5 block truncate text-[12.5px] text-ink-100 tnum">
                 E{prev.episode_number} · {prev.name}
               </span>
             </Link>
@@ -117,13 +124,15 @@ export default async function WatchEpisode({ params }) {
           {next && (
             <Link
               href={`/watch/tv/${id}/${seasonNumber}/${next.episode_number}`}
-              className="group min-w-0 rounded-xl bg-ink-900 p-3 text-right ring-1 ring-ink-700 transition-colors hover:bg-ink-850"
+              className="group plate min-w-0 rounded-xl p-4 text-right transition-[transform,border-color] duration-200 ease-[var(--ease-emphasised)] hover:-translate-y-0.5 hover:border-ink-600"
             >
-              <span className="flex items-center justify-end gap-1 text-[11px] font-semibold tracking-wide text-ink-400 uppercase">
+              <span className="flex items-center justify-end gap-1.5 text-[11px] font-semibold tracking-[0.12em] text-ink-400 uppercase transition-colors duration-200 group-hover:text-chit-400">
                 Next
-                <IconChevronRight className="size-3" />
+                <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:translate-x-0.5">
+                  <IconChevronRight className="size-3" />
+                </span>
               </span>
-              <span className="mt-1 block truncate text-[12.5px] text-ink-100">
+              <span className="mt-1.5 block truncate text-[12.5px] text-ink-100 tnum">
                 E{next.episode_number} · {next.name}
               </span>
             </Link>
@@ -131,7 +140,7 @@ export default async function WatchEpisode({ params }) {
         </nav>
       )}
 
-      <p className="mt-6 text-[12px] text-ink-500">
+      <p className="mt-10 max-w-[70ch] text-[12px] leading-relaxed text-ink-500">
         Playback is provided by an embedded third-party player. If you see popups or fake
         download buttons,{" "}
         <Link href="/adblock" className="text-chit-400 underline underline-offset-2">

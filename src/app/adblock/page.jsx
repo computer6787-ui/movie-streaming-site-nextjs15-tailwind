@@ -75,25 +75,26 @@ export default function AdBlockPage() {
   const [open, setOpen] = useState("userscript");
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-neutral-100">
-      <div className="mx-auto max-w-3xl px-4 py-10 sm:py-16">
-        <header className="mb-10">
-          <Link
-            href="/"
-            className="text-sm text-neutral-400 hover:text-neutral-100"
-          >
-            &larr; Back to movies
-          </Link>
-          <h1 className="mt-4 text-3xl font-bold sm:text-4xl">
-            Block the ads
-          </h1>
-          <p className="mt-3 leading-relaxed text-neutral-400">
-            The player we embed is a third-party iframe. Whatever it injects
-            lives on <span className="text-neutral-200">its</span> domain, not
-            ours, so no amount of site code can remove it. A browser-side
-            blocker is the fix - the first option takes one click.
-          </p>
-        </header>
+    <div className="shell max-w-4xl pt-(--header-h) pb-10">
+      <header className="pt-12 sm:pt-16">
+        <Link
+          href="/"
+          className="group inline-flex items-center gap-1.5 text-[12.5px] text-ink-400 transition-colors duration-200 hover:text-ink-100"
+        >
+          <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:-translate-x-0.5">
+            &larr;
+          </span>
+          Back to movies
+        </Link>
+        <p className="eyebrow mt-8 text-chit-600">Ad blocking</p>
+        <h1 className="display mt-2 text-[32px] text-ink-100 sm:text-[44px]">Block the ads</h1>
+        <p className="prose-measure mt-4 text-[14px] text-ink-300">
+          The player we embed is a third-party iframe. Whatever it injects
+          lives on <span className="text-ink-100">its</span> domain, not
+          ours, so no amount of site code can remove it. A browser-side
+          blocker is the fix &mdash; the first option takes one click.
+        </p>
+      </header>
 
         <div className="space-y-4">
           {OPTIONS.map((o) => {
@@ -101,10 +102,10 @@ export default function AdBlockPage() {
             return (
               <section
                 key={o.id}
-                className={`rounded-xl border transition-colors ${
+                className={`overflow-hidden rounded-xl border shadow-[0_4px_12px_-8px_rgba(0,0,0,0.6)] transition-all duration-300 ease-out ${
                   isOpen
-                    ? "border-red-600/60 bg-neutral-900"
-                    : "border-neutral-800 bg-neutral-900/40 hover:border-neutral-700"
+                    ? "border-red-500/40 bg-ink-900"
+                    : "border-ink-700/70 bg-ink-900/50 hover:-translate-y-0.5 hover:border-ink-600 hover:bg-ink-900/70 hover:shadow-[0_12px_28px_-14px_rgba(0,0,0,0.9)]"
                 }`}
               >
                 <button
@@ -114,16 +115,16 @@ export default function AdBlockPage() {
                   aria-expanded={isOpen}
                 >
                   <span className="min-w-0">
-                    <span className="mb-1 inline-block rounded-full bg-red-600/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-red-400">
+                    <span className="mb-1 inline-block rounded-md bg-red-500/15 px-2 py-0.5 text-[11px] font-semibold uppercase tracking-wide text-red-400">
                       {o.tag}
                     </span>
-                    <span className="block text-lg font-semibold">{o.name}</span>
-                    <span className="mt-1 block text-sm text-neutral-400">
+                    <span className="block text-lg font-semibold text-ink-100">{o.name}</span>
+                    <span className="mt-1 block max-w-[60ch] text-sm text-ink-400">
                       {o.blurb}
                     </span>
                   </span>
                   <span
-                    className={`shrink-0 text-neutral-500 transition-transform ${
+                    className={`shrink-0 text-ink-500 transition-transform duration-300 ease-out ${
                       isOpen ? "rotate-180" : ""
                     }`}
                     aria-hidden="true"
@@ -133,8 +134,8 @@ export default function AdBlockPage() {
                 </button>
 
                 {isOpen && (
-                  <div className="border-t border-neutral-800 px-5 py-5">
-                    <ol className="mb-5 list-decimal space-y-2 pl-5 text-sm text-neutral-300">
+                  <div className="border-t border-ink-800 px-5 py-5">
+                    <ol className="mb-5 list-decimal space-y-2 pl-5 text-sm text-ink-300">
                       {o.steps.map((s) => (
                         <li key={s}>{s}</li>
                       ))}
@@ -143,16 +144,16 @@ export default function AdBlockPage() {
                     {o.cta && (
                       <a
                         href={o.href}
-                        className="inline-flex items-center rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-red-500"
+                        className="inline-flex items-center rounded-lg bg-red-600 px-4 py-2 text-sm font-semibold text-white shadow-[0_8px_20px_-8px_rgba(220,38,38,0.6)] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-red-500 active:translate-y-0 active:scale-[0.98]"
                       >
                         {o.cta}
                       </a>
                     )}
 
                     {o.id === "extension" && (
-                      <p className="text-sm text-neutral-400">
+                      <p className="text-sm text-ink-400">
                         Select the{" "}
-                        <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
+                        <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
                           {REPO_EXT}/
                         </code>{" "}
                         folder in this project.
@@ -160,13 +161,13 @@ export default function AdBlockPage() {
                     )}
 
                     {o.external && o.externalUrl && (
-                      <p className="text-sm text-neutral-400">
+                      <p className="text-sm text-ink-400">
                         Official download:{" "}
                         <a
                           href={o.externalUrl}
                           target="_blank"
                           rel="noreferrer noopener"
-                          className="text-red-400 underline underline-offset-2 hover:text-red-300"
+                          className="text-chit-400 underline underline-offset-2 transition-colors hover:text-chit-300"
                         >
                           {o.externalLabel}
                         </a>
@@ -179,45 +180,44 @@ export default function AdBlockPage() {
           })}
         </div>
 
-        <section className="mt-10 rounded-xl border border-neutral-800 bg-neutral-900/40 p-5">
-          <h2 className="text-base font-semibold">
+        <section className="mt-10 rounded-xl border border-ink-700/70 bg-ink-900/50 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]">
+          <h2 className="text-base font-semibold text-ink-100">
             How do browsers like Brave block ads?
           </h2>
-          <p className="mt-2 text-sm text-neutral-400">
+          <p className="mt-2 max-w-[65ch] text-sm text-ink-400">
             They do it from the inside. Brave is a Chromium fork whose network
             layer checks every request against the{" "}
-            <span className="text-neutral-200">same EasyList</span> rules
+            <span className="text-ink-200">same EasyList</span> rules
             uBlock Origin uses, before the request leaves your machine &mdash;
             including requests from inside third-party iframes like this player.
             That engine ships with the browser, which is why Shields works with
             no setup.
           </p>
-          <p className="mt-2 text-sm text-neutral-400">
+          <p className="mt-2 max-w-[65ch] text-sm text-ink-400">
             A website cannot copy that. Blocking has to run above the page, not
             inside it, so on any other browser one of the options above is what
             stands in for it.
           </p>
         </section>
 
-        <section className="mt-4 rounded-xl border border-neutral-800 bg-neutral-900/40 p-5">
-          <h2 className="text-base font-semibold">Deploying somewhere else?</h2>
-          <p className="mt-2 text-sm text-neutral-400">
+        <section className="mt-4 rounded-xl border border-ink-700/70 bg-ink-900/50 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]">
+          <h2 className="text-base font-semibold text-ink-100">Deploying somewhere else?</h2>
+          <p className="mt-2 max-w-[65ch] text-sm text-ink-400">
             The userscript only injects on the domains listed in its{" "}
-            <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
+            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
               @match
             </code>{" "}
             header. If you host Chitralipi on your own domain, add a{" "}
-            <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
+            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
               @match https://your-domain/*
             </code>{" "}
             line to{" "}
-            <code className="rounded bg-neutral-800 px-1.5 py-0.5 text-xs text-neutral-200">
+            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
               {SCRIPT_URL}
             </code>{" "}
             and reinstall it.
           </p>
         </section>
-      </div>
     </div>
   );
 }
