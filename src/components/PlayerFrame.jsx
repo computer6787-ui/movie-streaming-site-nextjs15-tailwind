@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { IconPlay } from "@/components/icons";
 
 /**
  * The embedded player, wrapped in a loading state.
@@ -33,14 +32,6 @@ import { IconPlay } from "@/components/icons";
  */
 const SAFETY_TIMEOUT_MS = 15000;
 
-/**
- * Hide the decorative play button early so it does not overlap the real one.
- * The player iframe renders its controls within ~500ms, before the load event
- * fires. We fade just the icon once the frame is likely interactive, while
- * keeping the status text visible until the actual load completes.
- */
-const ICON_FADE_DELAY_MS = 500;
-
 export default function PlayerFrame({
   src,
   title,
@@ -49,18 +40,12 @@ export default function PlayerFrame({
 }) {
   // Starts `false` so the skeleton is present in the server-rendered HTML.
   const [loaded, setLoaded] = useState(false);
-  const [iconVisible, setIconVisible] = useState(true);
   const timer = useRef(null);
-  const iconTimer = useRef(null);
 
   const handleLoad = useCallback(() => {
     if (timer.current) {
       clearTimeout(timer.current);
       timer.current = null;
-    }
-    if (iconTimer.current) {
-      clearTimeout(iconTimer.current);
-      iconTimer.current = null;
     }
     setLoaded(true);
   }, []);
@@ -68,12 +53,9 @@ export default function PlayerFrame({
   useEffect(() => {
     // A new src (next episode) is a new document: show the skeleton again.
     setLoaded(false);
-    setIconVisible(true);
     timer.current = setTimeout(() => setLoaded(true), SAFETY_TIMEOUT_MS);
-    iconTimer.current = setTimeout(() => setIconVisible(false), ICON_FADE_DELAY_MS);
     return () => {
       if (timer.current) clearTimeout(timer.current);
-      if (iconTimer.current) clearTimeout(iconTimer.current);
     };
   }, [src]);
 
@@ -116,16 +98,9 @@ export default function PlayerFrame({
         {/* Sweep of light moving across the frame. */}
         <div className="player-skeleton-sweep absolute inset-0" />
 
-        {/* Center: pulsing play badge over the title and status. */}
+        {/* Center: title and status only, no play button. */}
         <div className="relative grid size-full place-items-center px-6">
           <div className="flex max-w-full flex-col items-center gap-3">
-            <span
-              className={`player-skeleton-badge grid size-14 place-items-center rounded-full border border-chit-500/25 bg-ink-900/70 text-chit-400 backdrop-blur-sm transition-opacity duration-300 ${
-                iconVisible ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <IconPlay className="size-5 translate-x-px" />
-            </span>
             <p className="max-w-full truncate text-[12.5px] font-medium text-ink-300">
               {label}
             </p>

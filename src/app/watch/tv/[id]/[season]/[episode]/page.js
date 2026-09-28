@@ -78,7 +78,7 @@ export default async function WatchEpisode({ params }) {
         <p className="eyebrow shrink-0 text-chit-600">Now screening</p>
       </div>
 
-      <div className="mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
+      <div className="mobile-player-container mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
         {src ? (
           <PlayerFrame
             src={src}

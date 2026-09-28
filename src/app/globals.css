@@ -431,6 +431,23 @@
     }
   }
 
+  /* ---------------------------- Mobile player sizing --------------------
+     On narrow viewports the 16:9 aspect-video becomes too short vertically.
+     The embedded player is responsive and its controls take up fixed space,
+     leaving little room for the actual video area. We add more vertical
+     space on mobile only, without affecting desktop behavior. */
+
+  @media (max-width: 639px) {
+    .mobile-player-container {
+      /* Override aspect-video on mobile. Use a taller aspect ratio that
+         gives the embedded player enough vertical room for its controls
+         plus a properly sized video area. */
+      aspect-ratio: auto !important;
+      min-height: clamp(280px, 75vh, 480px) !important;
+      height: clamp(280px, 75vh, 480px) !important;
+    }
+  }
+
   /* Reduced motion: strip movement, keep every state legible. */
   @media (prefers-reduced-motion: reduce) {
     html {
