@@ -6,6 +6,11 @@ Write-Host "  CineScope Startup" -ForegroundColor Cyan
 Write-Host "========================================" -ForegroundColor Cyan
 Write-Host ""
 
+# Dev always runs on 8080. The `start` script deliberately omits -p so Next
+# reads $env:PORT, which is what Render sets during deploys; pinning the port
+# in either script is what breaks the platform's port scan.
+$env:PORT = 8080
+
 # Kill any existing node processes
 Write-Host "→ Stopping any existing Node processes..." -ForegroundColor Yellow
 Get-Process -Name node -ErrorAction SilentlyContinue | Stop-Process -Force

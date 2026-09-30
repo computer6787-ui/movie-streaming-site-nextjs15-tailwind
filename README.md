@@ -51,7 +51,11 @@ Tampermonkey userscript, a bundled MV3 extension, and uBlock Origin. See
 
 ### Port Configuration
 
-- **CineScope**: Port 8080 (`package.json` → `dev` / `start` scripts)
+- **CineScope dev**: Port 8080 (`package.json` → `dev` script, and `PORT` in `start-dev.ps1`)
+- **Production**: No hardcoded port. `npm run start` runs a bare `next start`,
+  which binds `$PORT`. Render sets `PORT` (currently 10000) and scans that port
+  before marking a deploy live, so pinning a port in the `start` script breaks
+  the deploy.
 
 ### Environment
 

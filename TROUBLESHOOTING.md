@@ -35,6 +35,22 @@ config change.
 frame, and adding `allow-same-origin` + `allow-scripts` provides no real
 isolation for a cross-origin frame anyway. See `docs/ADBLOCK.md`.
 
+### 5. ⚠️ Render: "Port scan timeout reached, failed to detect open port 10000"
+**Problem**: The deploy fails and the log repeats
+`Continuing to scan for open port 10000 (from PORT environment variable)`.
+
+**Root Cause**: The start command hardcodes a port. Render sets `PORT` for the
+service and polls that port to decide when the deploy is live, so a service
+listening anywhere else never satisfies the scan. This is Render's own message,
+not an app error — no application code prints it.
+
+**Solution**: Do not pass a port to the start command. `npm run start` runs a
+bare `next start`, which binds `$PORT`. Keep 8080 for local dev only, pinned in
+`start-dev.ps1`. Verify locally with:
+```powershell
+$env:PORT=10000; npm run start   # should print "Local: http://localhost:10000"
+```
+
 ---
 
 ## 🚀 HOW TO START

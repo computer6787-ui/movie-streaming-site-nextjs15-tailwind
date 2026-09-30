@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev -p 8080 --turbopack",
     "build": "next build",
-    "start": "next start -p 8080",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

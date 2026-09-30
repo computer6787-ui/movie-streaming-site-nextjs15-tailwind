@@ -16,6 +16,9 @@ services:
     plan: free
     region: oregon
     buildCommand: npm ci && npm run build
+    # `npm run start` runs a bare `next start`, which binds $PORT. Render sets
+    # PORT=10000 and then scans that port before marking the deploy live, so the
+    # start command must never hardcode a port. Dev pins 8080 in start-dev.ps1.
     startCommand: npm run start
     healthCheckPath: /
     # TMDB rejects requests that arrive without an identifying token, and the
