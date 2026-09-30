@@ -2,27 +2,38 @@
 
 ## Why the site cannot fix this itself
 
-`/watch/[id]` embeds the player in a **cross-origin iframe**:
+`/watch/[id]` embeds the player in a **cross-origin iframe**. The default source
+is Filmu:
 
 ```jsx
-<iframe src="https://vidsrc.mov/embed/movie/{id}" />
+<iframe src="https://embed.filmu.in/movie/{id}" />
 ```
 
 The same-origin policy means `chitralipi` code cannot read or modify anything
-inside that frame. The popunders, overlay click-bait and ad iframes are
-injected on `vidsrc.mov`, so **no server-side or React-side change can remove
-them**. Blocking has to happen in your browser, on your machine.
+inside that frame. Popunders, overlay click-bait and ad iframes are injected by
+the player's host, so **no server-side or React-side change can remove them**.
+Blocking has to happen in your browser, on your machine. (The other providers
+in `src/lib/providers.js` behave the same way — only the host changes.)
 
 We hardened what we could from the site side anyway (`referrerPolicy`, `title`
 for a11y) — see `src/app/watch/[id]/page.jsx` — but that is defence in depth,
 not a fix.
 
 > **Do not add a `sandbox` attribute to the player iframe.** It was tried and
-> reverted: `vidsrc.mov` refuses to render inside a sandboxed frame ("This
+> reverted: the player refuses to render inside a sandboxed frame ("This
 > content can't be embedded in a sandboxed frame") and playback fails outright.
+> The `vsembed.ru` player behind the VidSrc provider does this deliberately,
+> via an anti-sandbox script (`sbx.js`) that redirects to `/sandbox.php` when
+> it detects a `sandbox` attribute on a parent frame.
 > If you ever revisit it, `allow-same-origin` + `allow-scripts` together also
 > provide no real isolation for a cross-origin frame, so the attribute only
 > risks breaking the player.
+>
+> The same rule applies to any frame we embed: beyond the anti-sandbox
+> script, a token list missing `allow-presentation`, `allow-pointer-lock`,
+> `allow-modals` and `allow-top-navigation-by-user-activation` is enough to stop
+> video playing inside it. Untrusted content belongs in a real browser
+> process, where Chromium's process isolation applies.
 
 ## The three options
 
@@ -47,7 +58,7 @@ any other browser one of the options below is what stands in for it.
 
 ## What the player actually loads
 
-Verified by fetching the live player (Sept 2026). The chain is
+Verified by fetching the live VidSrc player (Sept 2026). That chain is
 `vidsrc.mov/embed/movie/{id}` → inner frame `vsembed.ru/embed/movie/{id}` →
 ad servers on that page:
 
@@ -65,6 +76,11 @@ adding `sandbox` to our iframe broke playback — see the warning above.
 
 These hosts are listed in `browser-extension/rules.js` and in the userscript's
 `AD_HOSTS`, so both block them by name rather than relying on a filter list.
+
+Filmu's own ad hosts have not been fingerprinted the same way yet. Its host is
+covered by name (and by the EasyList-based lists the extension syncs), but if
+you find popunders on it, add the host to `AD_HOSTS` in **both**
+`browser-extension/rules.js` and the userscript — they are kept in sync by hand.
 
 
 ### 1. Tampermonkey userscript
@@ -106,7 +122,7 @@ nothing is even sent.
 5. **Load unpacked** → select the folder you just unzipped.
 6. Click the extension icon once so the filter lists download.
 
-It ships 308 built-in rules (58 ad/tracking hosts plus 10 player hosts × 25 ad
+It ships 358 built-in rules (58 ad/tracking hosts plus 12 player hosts × 25 ad
 paths) and syncs EasyList, EasyPrivacy and Fanboy's Annoyances into dynamic DNR
 rules on install and every 6 hours. The popup shows the active rule count and
 has a kill switch.

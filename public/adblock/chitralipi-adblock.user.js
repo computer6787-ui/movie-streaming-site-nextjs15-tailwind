@@ -1,12 +1,15 @@
 // ==UserScript==
 // @name         Chitralipi Ad Blocker
 // @namespace    https://github.com/chitralipi/chitralipi
-// @version      1.0.0
+// @version      1.1.0
 // @description  Blocks popups/popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Chitralipi and inside the embedded player.
 // @author       Chitralipi
-// @match        http://localhost:3000/*
-// @match        http://127.0.0.1:3000/*
+// @match        http://localhost:8080/*
+// @match        http://127.0.0.1:8080/*
 // @match        https://*.vercel.app/*
+// @match        https://*.onrender.com/*
+// @match        https://embed.filmu.in/*
+// @match        https://*.filmu.in/*
 // @match        https://vidsrc.mov/*
 // @match        https://*.vidsrc.mov/*
 // @match        https://vidsrc.to/*
@@ -34,17 +37,18 @@
 // ---------------------------------------------------------------------
 // HOW TO INSTALL
 //   1. Install Tampermonkey (Chrome/Edge/Firefox).
-//   2. Open  http://localhost:3000/adblock/chitralipi-adblock.user.js
+//   2. Open  http://localhost:8080/adblock/chitralipi-adblock.user.js
 //      (or your deployed /adblock/chitralipi-adblock.user.js)
 //   3. Tampermonkey detects the block above and offers to install it.
-//   4. If you deploy somewhere other than *.vercel.app, add that domain
+//   4. If you deploy to a domain not covered above, add that domain
 //      to the @match list and reinstall.
 //
 // WHY THERE IS NO @noframes
-//   The player is a CROSS-ORIGIN <iframe> (vidsrc.mov). Same-origin
-//   policy means the Next.js site cannot touch that document at all.
-//   Listing the player domains in @match is the only way this script
-//   gets injected where the ads actually live.
+//   The player is a CROSS-ORIGIN <iframe> (embed.filmu.in by default, or
+//   vidsrc.mov and the others in src/lib/providers.js). Same-origin policy
+//   means the Next.js site cannot touch that document at all. Listing the
+//   player domains in @match is the only way this script gets injected
+//   where the ads actually live.
 //
 // WHAT THIS CANNOT DO
 //   Tampermonkey has no request-blocking API, so it cannot cancel

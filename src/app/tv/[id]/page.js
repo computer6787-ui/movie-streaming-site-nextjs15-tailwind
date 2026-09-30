@@ -48,9 +48,9 @@ export default async function TvPage({ params }) {
   return (
     <div className="shell pt-(--header-h) pb-10">
       <div className="relative">
-        {IMG.backdrop(show.backdrop_path, "original") && (
+        {IMG.backdrop(show.backdrop_path, "w1280") && (
           <img
-            src={IMG.backdrop(show.backdrop_path, "original")}
+            src={IMG.backdrop(show.backdrop_path, "w1280")}
             alt=""
             className="backdrop-settle absolute inset-0 -z-10 size-full object-cover opacity-45"
           />

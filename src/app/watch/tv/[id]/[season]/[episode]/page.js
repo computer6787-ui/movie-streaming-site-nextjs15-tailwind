@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import PlayerFrame from "@/components/PlayerFrame";
 import { IconArrowLeft, IconChevronRight } from "@/components/icons";
-import { tvEmbedUrl } from "@/lib/embed";
 import { IMG, seasonDetail, titleOf, tvDetail } from "@/lib/tmdb";
+import TVPlayer from "./TVPlayer";
 
 export const revalidate = 3600;
 
@@ -32,10 +31,6 @@ export default async function WatchEpisode({ params }) {
   const episodeNumber = positiveInt(rawEpisode);
   if (!seasonNumber || !episodeNumber) notFound();
 
-  // Built from the validated numbers, so the iframe src can never disagree
-  // with the season/episode shown in the UI.
-  const src = tvEmbedUrl(id, seasonNumber, episodeNumber);
-
   // Metadata is decorative: a failure here must not block playback.
   const [show, seasonData] = await Promise.all([
     tvDetail(id).catch(() => null),
@@ -51,6 +46,7 @@ export default async function WatchEpisode({ params }) {
   const next = index >= 0 && index < episodes.length - 1 ? episodes[index + 1] : null;
 
   const title = show ? titleOf(show) : "Series";
+  const poster = IMG.backdrop(show?.backdrop_path);
 
   return (
     <div className="shell pt-(--header-h) pb-10">
@@ -78,20 +74,13 @@ export default async function WatchEpisode({ params }) {
         <p className="eyebrow shrink-0 text-chit-600">Now screening</p>
       </div>
 
-      <div className="mobile-player-container mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
-        {src ? (
-          <PlayerFrame
-            src={src}
-            title={`${title} — Season ${seasonNumber}, Episode ${episodeNumber}`}
-            poster={IMG.backdrop(show?.backdrop_path)}
-            label={`Loading S${seasonNumber} · E${episodeNumber}`}
-          />
-        ) : (
-          <div className="grid size-full place-items-center p-6 text-center text-[13px] text-ink-400">
-            This episode cannot be played right now.
-          </div>
-        )}
-      </div>
+      <TVPlayer
+        tmdbId={id}
+        season={seasonNumber}
+        episode={episodeNumber}
+        title={title}
+        poster={poster}
+      />
 
       {current?.overview && (
         <div className="mt-8">

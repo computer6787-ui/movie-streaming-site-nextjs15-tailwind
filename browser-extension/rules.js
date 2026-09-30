@@ -49,6 +49,7 @@ export const AD_HOSTS = [
 
 /** Player hosts we embed. Playback is allowed; ad paths are blocked below. */
 export const PLAYER_BLOCK_HOSTS = [
+  "embed.filmu.in", "filmu.in",
   "vidsrc.mov", "vidsrc.to", "vidsrc.xyz", "vidsrc.in",
   // Inner frame of vidsrc.mov/embed/movie/{id} - confirmed live.
   "vsembed.ru",
@@ -58,6 +59,7 @@ export const PLAYER_BLOCK_HOSTS = [
 
 /** Player hosts that serve the actual video - never block these. */
 export const ALLOW_HOSTS = [
+  "embed.filmu.in", "filmu.in",
   "vidsrc.mov", "vidsrc.to", "vidsrc.xyz", "vidsrc.in",
   "vsembed.ru",
   "streamtape.com", "filemoon.sx", "mixdrop.co", "streamwish.com",

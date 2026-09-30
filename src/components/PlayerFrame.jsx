@@ -37,6 +37,7 @@ export default function PlayerFrame({
   title,
   poster = null,
   label = "Loading player",
+  providerName = null,
 }) {
   // Starts `false` so the skeleton is present in the server-rendered HTML.
   const [loaded, setLoaded] = useState(false);
@@ -51,7 +52,7 @@ export default function PlayerFrame({
   }, []);
 
   useEffect(() => {
-    // A new src (next episode) is a new document: show the skeleton again.
+    // A new src (next episode or provider switch) is a new document: show the skeleton again.
     setLoaded(false);
     timer.current = setTimeout(() => setLoaded(true), SAFETY_TIMEOUT_MS);
     return () => {
@@ -114,7 +115,7 @@ export default function PlayerFrame({
                 <i />
                 <i />
               </span>
-              Connecting to the source
+              {providerName ? `Connecting to ${providerName}` : 'Connecting to the source'}
             </p>
           </div>
         </div>

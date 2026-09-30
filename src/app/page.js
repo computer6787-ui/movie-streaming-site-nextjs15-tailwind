@@ -10,7 +10,12 @@ export default async function Home() {
   const [sections, trendingData] = await Promise.all([homeSections(), trending("all")]);
 
   const [hero] = trendingData.results ?? [];
-  const backdrop = hero ? IMG.backdrop(hero.backdrop_path, "original") : "";
+  // w1280, not "original". The hero is full-bleed so it does want a large
+  // image, but for this artwork TMDB's original is ~950 KB against ~126 KB at
+  // w1280: 87% of the bytes are thrown away for pixels the object-cover crop
+  // and the two scrims never show. w780 would be visibly soft at hero size.
+  // IMG.backdrop already defaults to w1280; stated here to make the intent explicit.
+  const backdrop = hero ? IMG.backdrop(hero.backdrop_path, "w1280") : "";
 
   return (
     <div className="pb-6">

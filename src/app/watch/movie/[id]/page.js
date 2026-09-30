@@ -1,9 +1,8 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import PlayerFrame from "@/components/PlayerFrame";
 import { IconArrowLeft } from "@/components/icons";
-import { movieEmbedUrl } from "@/lib/embed";
 import { IMG, movieDetail, titleOf } from "@/lib/tmdb";
+import MoviePlayer from "./MoviePlayer";
 
 export const revalidate = 3600;
 
@@ -24,9 +23,6 @@ export default async function WatchMovie({ params }) {
   if (!movie) notFound();
 
   const title = titleOf(movie);
-  // Built once: the previous code called the builder twice in the same
-  // expression, and the src is now passed to a client component.
-  const src = movieEmbedUrl(id);
   const poster = IMG.backdrop(movie.backdrop_path);
 
   return (
@@ -54,20 +50,11 @@ export default async function WatchMovie({ params }) {
         <p className="eyebrow shrink-0 text-chit-600">Now screening</p>
       </div>
 
-      <div className="mobile-player-container mt-5 aspect-video w-full overflow-hidden rounded-2xl border border-ink-800 bg-black [box-shadow:var(--elev-4)]">
-        {src ? (
-          <PlayerFrame
-            src={src}
-            title={title}
-            poster={poster}
-            label={`Loading ${title}`}
-          />
-        ) : (
-          <div className="grid size-full place-items-center p-6 text-center text-[13px] text-ink-400">
-            This title cannot be played right now.
-          </div>
-        )}
-      </div>
+      <MoviePlayer 
+        tmdbId={id} 
+        title={title} 
+        poster={poster} 
+      />
 
       {movie.overview && (
         <div className="mt-8">

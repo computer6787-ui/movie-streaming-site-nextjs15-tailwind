@@ -57,9 +57,9 @@ export default async function MoviePage({ params }) {
       {/* Full-bleed backdrop, then the content on top. The art runs edge to
           edge so the page opens like a lobby card. */}
       <div className="relative">
-        {IMG.backdrop(movie.backdrop_path, "original") && (
+        {IMG.backdrop(movie.backdrop_path, "w1280") && (
           <img
-            src={IMG.backdrop(movie.backdrop_path, "original")}
+            src={IMG.backdrop(movie.backdrop_path, "w1280")}
             alt=""
             className="backdrop-settle absolute inset-0 -z-10 size-full object-cover opacity-45"
           />
