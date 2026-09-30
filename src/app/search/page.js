@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import IntentLink from "@/components/IntentLink";
 import PosterCard from "@/components/PosterCard";
 import Reveal from "@/components/Reveal";
 import SearchForm from "@/components/SearchForm";
@@ -86,10 +87,11 @@ export default async function SearchPage({ searchParams }) {
               const count = counts[tab.id];
               const query = new URLSearchParams({ q, type: tab.id });
               return (
-                <Link
+                <IntentLink
                   key={tab.id}
                   href={`/search?${query}`}
                   aria-current={active ? "true" : undefined}
+                  prefetch
                   className={`rounded-full px-3.5 py-1.5 text-[12.5px] font-medium transition-[background-color,color] duration-200 ease-[var(--ease-standard)] ${
                     active
                       ? "bg-ink-800 text-ink-100 [box-shadow:var(--elev-1)]"
@@ -100,7 +102,7 @@ export default async function SearchPage({ searchParams }) {
                   {count > 0 && (
                     <span className="ml-1.5 text-[11px] text-ink-500 tnum">{count}</span>
                   )}
-                </Link>
+                </IntentLink>
               );
             })}
           </div>
@@ -130,7 +132,7 @@ export default async function SearchPage({ searchParams }) {
       {!q && (
         <div className="mt-12 grid gap-3 sm:grid-cols-3">
           {TYPES.filter((t) => t.id !== "all").map((tab) => (
-            <Link
+            <IntentLink
               key={tab.id}
               href={`/browse/${tab.id}`}
               className="group plate rounded-xl px-5 py-4 transition-[border-color,transform] duration-200 ease-[var(--ease-standard)] hover:-translate-y-0.5 hover:border-ink-600"
@@ -141,7 +143,7 @@ export default async function SearchPage({ searchParams }) {
               <p className="mt-1 text-[12px] text-ink-400">
                 Filter by genre, year, rating and sort order.
               </p>
-            </Link>
+            </IntentLink>
           ))}
         </div>
       )}

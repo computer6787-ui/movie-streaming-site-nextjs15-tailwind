@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import IntentLink from "@/components/IntentLink";
 import { Shelf } from "@/components/PosterCard";
 import { IconCalendar, IconClock, IconPlay, IconStar } from "@/components/icons";
 import {
@@ -118,25 +119,29 @@ export default async function MoviePage({ params }) {
             {movie.genres?.length > 0 && (
               <div className="mt-4 flex flex-wrap gap-1.5">
                 {movie.genres.map((g) => (
-                  <a
+                  <IntentLink
                     key={g.id}
                     href={`/browse/movie?genre=${g.id}`}
                     className="rounded-full border border-ink-700 bg-ink-900/60 px-2.5 py-1 text-[11.5px] font-medium text-ink-200 transition-[background-color,color,border-color] duration-200 ease-[var(--ease-standard)] hover:border-chit-500/45 hover:bg-ink-850 hover:text-chit-300"
                   >
                     {g.name}
-                  </a>
+                  </IntentLink>
                 ))}
               </div>
             )}
 
             <div className="mt-6 flex flex-wrap gap-3">
-              <a
+              {/* The primary call to action, and the single most latency-sensitive
+                  link on the site: this used to be a plain anchor, which opted
+                  out of the App Router entirely and cost a full document
+                  reload on the very click that is most expected to be instant. */}
+              <IntentLink
                 href={`/watch/movie/${movie.id}`}
                 className="inline-flex items-center gap-2 rounded-xl bg-ink-100 px-5 py-2.5 text-[13.5px] font-semibold text-ink-950 [box-shadow:var(--elev-3)] transition-[transform,background-color,box-shadow] duration-200 ease-[var(--ease-emphasised)] hover:-translate-y-0.5 hover:bg-white hover:[box-shadow:var(--elev-4)] active:translate-y-0"
               >
                 <IconPlay className="size-4" />
                 Watch now
-              </a>
+              </IntentLink>
               {trailer && (
                 <a
                   href={`https://www.youtube.com/watch?v=${trailer.key}`}

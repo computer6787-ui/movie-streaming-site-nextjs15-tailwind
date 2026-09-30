@@ -145,10 +145,10 @@ Blocking happens in **your browser**, because the player is a cross-origin
 iframe that site code cannot modify. Three supported options are documented in
 `docs/ADBLOCK.md`:
 
-1. **uBlock Origin** — recommended, install from your browser's store.
-2. **Bundled MV3 extension** — download and "load unpacked" via
+1. **Brave Shields** — recommended, already built into the browser.
+2. **uBlock Origin** — install from your browser's store.
+3. **Bundled MV3 extension** — download and "load unpacked" via
    `chrome://extensions`.
-3. **Tampermonkey userscript** — served from `/adblock` on the running app.
 
 ---
 

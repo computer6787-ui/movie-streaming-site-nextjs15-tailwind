@@ -358,6 +358,129 @@
     }
   }
 
+  /* ------------------------------ Route loading -----------------------
+     Two layers of feedback for navigation. The progress bar (RouteProgress.jsx)
+     sits in the fixed header and covers every transition, including the ones a
+     skeleton cannot predict. The skeletons (RouteSkeleton.jsx) stand in for the
+     page body, per route, so the swap back to real content does not reflow.
+
+     Both read from the same warm-graphite ramp as everything else, so a loading
+     state looks like the design system rather than a bolted-on spinner. */
+
+  .sk {
+    position: relative;
+    overflow: hidden;
+    background-color: var(--color-ink-800);
+    border-radius: 6px;
+  }
+  /* The sweep. One pass every 1.6s, offset per child so a grid of skeletons
+     ripples left-to-right instead of blinking in unison. */
+  .sk::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      transparent 30%,
+      color-mix(in oklab, var(--color-ink-100) 7%, transparent) 50%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+    animation: sk-sweep 1.6s var(--ease-standard) infinite;
+    animation-delay: var(--sk-delay, 0ms);
+  }
+  /* Poster + backdrop frames keep their own radius from the real component. */
+  .sk-poster {
+    border-radius: 14px;
+  }
+
+  @keyframes sk-sweep {
+    from {
+      background-position: 150% 0;
+    }
+    to {
+      background-position: -50% 0;
+    }
+  }
+
+  /* A slow breathe, for large blocks (hero, player) where a 1.6s sweep across
+     a wide surface reads as too fast. */
+  .sk-breathe {
+    animation: sk-breathe 2.8s var(--ease-standard) infinite;
+  }
+  @keyframes sk-breathe {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.55;
+    }
+  }
+
+  /* Skeletons are held back, then revealed, so a navigation that resolves from
+     the router cache in 20ms never paints a skeleton at all. The wrapper is
+     mounted from the first frame -- the progress bar depends on it -- so the
+     delay has to be visibility, not presence. `visibility: hidden` rather than
+     `display: none` on purpose: the boxes must already occupy their space when
+     they appear, or the reveal itself becomes the layout jump the skeletons
+     exist to prevent. */
+  [data-shown="false"] {
+    visibility: hidden;
+  }
+  [data-shown="true"] {
+    visibility: visible;
+    animation: sk-in 220ms var(--ease-standard) both;
+  }
+  @keyframes sk-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* Route progress bar. A 2px amber line pinned to the bottom edge of the fixed
+     header. Indeterminate: it grows toward 90% and never completes on its own,
+     because the router -- not this bar -- decides when the page is ready.
+
+     The scale is written to the element directly by RouteProgress's rAF loop, so
+     there is deliberately no CSS transition on it. A transition would interpolate
+     toward a target that is already moving, which puts the bar visibly behind
+     where it should be and makes it stutter. The only animated property here is
+     the container's opacity, which changes twice per navigation and so is cheap. */
+  .route-progress {
+    position: absolute;
+    inset-x: 0;
+    bottom: -1px;
+    height: 2px;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0;
+    transition: opacity 200ms var(--ease-standard);
+  }
+  .route-progress[data-phase="loading"],
+  .route-progress[data-phase="leaving"] {
+    opacity: 1;
+  }
+  .route-progress-bar {
+    height: 100%;
+    width: 100%;
+    /* Set inline by the rAF loop; scaleX(0) as the resting value so the bar can
+       never flash full-width on the frame the element is created. */
+    transform: scaleX(0);
+    transform-origin: left center;
+    background: linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-chit-600) 30%, transparent),
+      var(--color-chit-400) 60%,
+      color-mix(in oklab, var(--color-chit-300) 90%, transparent)
+    );
+    box-shadow: 0 0 10px color-mix(in oklab, var(--color-chit-400) 55%, transparent);
+  }
+
   /* ---------------------------- Player skeleton ------------------------
      Decorative, mounted under a cross-origin iframe (PlayerFrame.jsx). */
 
@@ -464,6 +587,20 @@
     .reveal[data-shown="true"] {
       opacity: 1;
       transform: none;
+    }
+    /* A skeleton that never moves still has to read as "loading". Opacity is
+       the one channel left, and it costs nothing. */
+    .sk::after {
+      animation: none;
+      opacity: 0.5;
+    }
+    .sk-breathe {
+      animation: none;
+    }
+    /* The progress bar still sweeps left-to-right, just without the easing
+       curve. Hiding it entirely would leave a slow route with no feedback. */
+    .route-progress-bar {
+      transition: none;
     }
     .card-lift:hover,
     .card-lift:hover img,

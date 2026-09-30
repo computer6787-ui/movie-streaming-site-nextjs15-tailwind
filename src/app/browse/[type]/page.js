@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { Suspense } from "react";
 import FilterBar from "@/components/FilterBar";
 import PosterCard from "@/components/PosterCard";
@@ -126,8 +127,9 @@ function Pagination({ type, page, totalPages, params }) {
 
   return (
     <nav className="mt-16 flex flex-wrap items-center justify-center gap-1.5" aria-label="Pagination">
-      <a
+      <Link
         href={buildHref(type, Math.max(1, page - 1), params)}
+        scroll={false}
         aria-disabled={page <= 1}
         className={`${base} ${
           page <= 1
@@ -136,14 +138,15 @@ function Pagination({ type, page, totalPages, params }) {
         }`}
       >
         Prev
-      </a>
+      </Link>
 
       {pages[0] > 1 && <span className="px-1 text-ink-500">&hellip;</span>}
 
       {pages.map((p) => (
-        <a
+        <Link
           key={p}
           href={buildHref(type, p, params)}
+          scroll={false}
           aria-current={p === page ? "page" : undefined}
           className={`${base} tabular-nums ${
             p === page
@@ -152,13 +155,14 @@ function Pagination({ type, page, totalPages, params }) {
           }`}
         >
           {p}
-        </a>
+        </Link>
       ))}
 
       {pages[pages.length - 1] < totalPages && <span className="px-1 text-ink-500">&hellip;</span>}
 
-      <a
+      <Link
         href={buildHref(type, Math.min(totalPages, page + 1), params)}
+        scroll={false}
         aria-disabled={page >= totalPages}
         className={`${base} ${
           page >= totalPages
@@ -167,7 +171,7 @@ function Pagination({ type, page, totalPages, params }) {
         }`}
       >
         Next
-      </a>
+      </Link>
     </nav>
   );
 }

@@ -3,47 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const SCRIPT_URL = "/adblock/chitralipi-adblock.user.js";
 const REPO_EXT = "browser-extension";
 
 const OPTIONS = [
   {
-    id: "userscript",
-    tag: "Recommended",
-    name: "Tampermonkey userscript",
-    blurb:
-      "One click, no build step. Kills popunders, click-hijackers, notification nags, fake download buttons and ad iframes - on Chitralipi and inside the player.",
-    steps: [
-      "Install Tampermonkey for your browser.",
-      "Click the button below - Tampermonkey reads the script header and asks to install it.",
-      "Allow the script to run on top-level frames; that is what lets it reach the embedded player.",
-      "Reload any watch page you already had open.",
-    ],
-    cta: "Install Tampermonkey script",
-    href: SCRIPT_URL,
-  },
-  {
-    id: "extension",
-    tag: "Network-level",
-    name: "Chitralipi Ad Blocker extension",
-    blurb:
-      "A Manifest V3 extension that blocks ad requests before they leave your browser, using uBlock's EasyList lists plus rules targeting this exact player. The only option that stops the requests themselves.",
-    steps: [
-      "Download the .zip below and unzip it into its own folder.",
-      "Open chrome://extensions (or edge://extensions).",
-      "Turn on Developer mode.",
-      "Choose 'Load unpacked' and select the folder you just unzipped.",
-      "Click the extension icon once so the filter lists download.",
-    ],
-    cta: "Download extension (.zip)",
-    href: "/adblock/extension",
-  },
-  {
     id: "brave",
-    tag: "Already built in",
+    tag: "Recommended",
     name: "Brave browser",
     blurb:
-      "If you use Brave, do nothing - Shields is already an ad blocker. It runs the same EasyList rules inside the browser itself, so it already covers the player without installing anything.",
+      "Already built in - do nothing. Shields runs the same EasyList rules inside the browser itself, so it covers the player with zero setup.",
     steps: [
       "Nothing to install.",
       "Brave Shields is on by default for every site.",
@@ -55,10 +23,10 @@ const OPTIONS = [
   },
   {
     id: "ublock",
-    tag: "Best coverage",
+    tag: "Best for other browsers",
     name: "uBlock Origin",
     blurb:
-      "The reference implementation. If you only install one thing, install this - it already covers everything Chitralipi shows, plus far more.",
+      "The reference implementation. If you are not on Brave and install only one thing, install this - it already covers everything Chitralipi shows, plus far more.",
     steps: [
       "Install uBlock Origin from your browser's official store.",
       "Settings > Filter lists - keep EasyList, EasyPrivacy and Fanboy's Annoyances enabled.",
@@ -69,10 +37,26 @@ const OPTIONS = [
     externalUrl: "https://ublockorigin.com/",
     externalLabel: "ublockorigin.com",
   },
+  {
+    id: "extension",
+    tag: "Chitralipi extension",
+    name: "Chitralipi Ad Blocker extension",
+    blurb:
+      "A Manifest V3 extension bundled with this project. Blocks ad requests before they leave your browser, using uBlock's EasyList lists plus rules targeting this exact player.",
+    steps: [
+      "Download the .zip below and unzip it into its own folder.",
+      "Open chrome://extensions (or edge://extensions).",
+      "Turn on Developer mode.",
+      "Choose 'Load unpacked' and select the folder you just unzipped.",
+      "Click the extension icon once so the filter lists download.",
+    ],
+    cta: "Download extension (.zip)",
+    href: "/adblock/extension",
+  },
 ];
 
 export default function AdBlockPage() {
-  const [open, setOpen] = useState("userscript");
+  const [open, setOpen] = useState("brave");
 
   return (
     <div className="shell max-w-4xl pt-(--header-h) pb-10">
@@ -92,7 +76,8 @@ export default function AdBlockPage() {
           The player we embed is a third-party iframe. Whatever it injects
           lives on <span className="text-ink-100">its</span> domain, not
           ours, so no amount of site code can remove it. A browser-side
-          blocker is the fix &mdash; the first option takes one click.
+          blocker is the fix &mdash; on Brave you already have one, and on
+          any other browser it is one install.
         </p>
       </header>
 
@@ -197,25 +182,6 @@ export default function AdBlockPage() {
             A website cannot copy that. Blocking has to run above the page, not
             inside it, so on any other browser one of the options above is what
             stands in for it.
-          </p>
-        </section>
-
-        <section className="mt-4 rounded-xl border border-ink-700/70 bg-ink-900/50 p-5 shadow-[inset_0_1px_0_0_rgba(255,255,255,0.04)]">
-          <h2 className="text-base font-semibold text-ink-100">Deploying somewhere else?</h2>
-          <p className="mt-2 max-w-[65ch] text-sm text-ink-400">
-            The userscript only injects on the domains listed in its{" "}
-            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
-              @match
-            </code>{" "}
-            header. If you host Chitralipi on your own domain, add a{" "}
-            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
-              @match https://your-domain/*
-            </code>{" "}
-            line to{" "}
-            <code className="rounded bg-ink-800 px-1.5 py-0.5 text-xs text-ink-200">
-              {SCRIPT_URL}
-            </code>{" "}
-            and reinstall it.
           </p>
         </section>
     </div>

@@ -39,9 +39,10 @@ before starting:
 A single Next.js app on port 8080, deployed to Render as one web service.
 
 The player embed is a cross-origin iframe, so in-page ad blocking is not
-possible from site code. Blocking is offered three ways instead — a
-Tampermonkey userscript, a bundled MV3 extension, and uBlock Origin. See
-[`docs/ADBLOCK.md`](./docs/ADBLOCK.md) for the full explanation and setup.
+possible from site code. Blocking is offered three ways instead — Brave
+Shields (already built in, recommended), uBlock Origin, and a bundled MV3
+extension. See [`docs/ADBLOCK.md`](./docs/ADBLOCK.md) for the full explanation
+and setup.
 
 > **Do not add a `sandbox` attribute to the player iframe.** The player refuses
 > to render inside a sandboxed frame, and playback fails outright. The details

@@ -4,10 +4,10 @@
 # "New +" -> "Blueprint" and point it at this repository.
 #
 # This is the only deployable service in this repository: the movie/series
-# web app. Ad blocking ships as browser-side options (a Tampermonkey
-# userscript, a bundled MV3 extension, or uBlock Origin) rather than an
-# in-page engine, because the player is a cross-origin iframe that site
-# code cannot modify. See docs/ADBLOCK.md.
+# web app. Ad blocking ships as browser-side options (Brave Shields, uBlock
+# Origin, or a bundled MV3 extension) rather than an in-page engine, because
+# the player is a cross-origin iframe that site code cannot modify. See
+# docs/ADBLOCK.md.
 
 services:
   - type: web

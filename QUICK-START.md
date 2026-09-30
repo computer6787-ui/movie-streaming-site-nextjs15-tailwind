@@ -65,8 +65,8 @@ Browses and searches via the TMDB API
     ↓
 /watch/[id] embeds the player in a cross-origin iframe
     ↓
-Ad blocking is applied by the user's browser (uBlock Origin, the bundled
-MV3 extension, or the Tampermonkey script) — see docs/ADBLOCK.md
+Ad blocking is applied by the user's browser (Brave Shields, uBlock Origin, or
+the bundled MV3 extension) — see docs/ADBLOCK.md
 ```
 
 ---

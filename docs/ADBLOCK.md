@@ -37,12 +37,15 @@ not a fix.
 
 ## The three options
 
+Pick in this order: Brave if you already use it (nothing to do), uBlock Origin
+otherwise, and the bundled extension if you would rather not depend on a
+third-party store.
+
 | Option | Stops popups/click-bait | Stops ad *network* requests | Effort |
 | --- | --- | --- | --- |
-| Already using Brave? | Yes | Yes | **Nothing** |
-| [Tampermonkey userscript](#1-tampermonkey-userscript) | Yes | No | 1 click |
-| [Bundled MV3 extension](#2-bundled-mv3-extension) | Partly | Yes | Download + load |
-| [uBlock Origin](#3-ublock-origin) | Yes | Yes | Install from store |
+| [Brave browser](#1-brave-browser-recommended) | Yes | Yes | **Nothing** |
+| [uBlock Origin](#2-ublock-origin) | Yes | Yes | Install from store |
+| [Bundled MV3 extension](#3-bundled-mv3-extension) | Partly | Yes | Download + load |
 
 ## How Brave does it (and why a site cannot copy it)
 
@@ -54,7 +57,7 @@ the same lists uBlock Origin uses — plus its own curated list.
 
 The important part: that engine lives **above** the page, inside the browser. A
 website has no API to reach it. So on Brave there is nothing to install, and on
-any other browser one of the options below is what stands in for it.
+any other browser one of the options above is what stands in for it.
 
 ## What the player actually loads
 
@@ -74,42 +77,44 @@ ad servers on that page:
 attribute on a parent frame, it redirects itself to `/sandbox.php`. That is why
 adding `sandbox` to our iframe broke playback — see the warning above.
 
-These hosts are listed in `browser-extension/rules.js` and in the userscript's
-`AD_HOSTS`, so both block them by name rather than relying on a filter list.
+These hosts are listed in `browser-extension/rules.js`, so the bundled
+extension blocks them by name rather than relying on a filter list.
 
 Filmu's own ad hosts have not been fingerprinted the same way yet. Its host is
 covered by name (and by the EasyList-based lists the extension syncs), but if
-you find popunders on it, add the host to `AD_HOSTS` in **both**
-`browser-extension/rules.js` and the userscript — they are kept in sync by hand.
+you find popunders on it, add the host to `AD_HOSTS` in
+`browser-extension/rules.js`.
 
 
-### 1. Tampermonkey userscript
+### 1. Brave browser (recommended)
 
-File: `public/adblock/chitralipi-adblock.user.js`, served at
-`/adblock/chitralipi-adblock.user.js`.
+Nothing to install. Shields is on by default for every site.
 
-1. Install [Tampermonkey](https://www.tampermonkey.net/).
-2. Visit `/adblock` in the running app and click **Install Tampermonkey script**,
-   or open the `.user.js` URL directly.
-3. Accept the install prompt, then reload any open watch page.
+1. Nothing to install.
+2. Brave Shields is on by default for every site.
+3. If a site ever breaks, click the Shields icon in the address bar to toggle
+   it for that site only.
 
-It removes ad iframes and popunder elements, hijacks `window.open`, strips
-inline `onclick`/`onmouseover` traps, neuters fake "download" links, and
-silences notification prompts.
+This is the recommended option because it is already there — the engine ships
+inside the browser, so there is no extension to maintain, no filter lists to
+update and no extra process running.
 
-**Limitation:** Tampermonkey has no request-blocking API, so the ad *requests*
-still go out — they are only hidden. It also cannot override
-`window.location` in modern engines, because that property is
-non-configurable. Use the extension or uBlock for full coverage.
+### 2. uBlock Origin
 
-The script intentionally has **no `@noframes`**, and its `@match` list includes
-the player domains. That is the only way it gets injected into the frame where
-the ads actually live. Keep it that way.
+The right pick on any browser that is not Brave. If you install only one thing,
+install this.
 
-**Deploying to your own domain?** Add a `@match https://your-domain/*` line to
-the script header and reinstall.
+1. Install [uBlock Origin](https://ublockorigin.com/) from your browser's
+   official store.
+2. **Settings → Filter lists**: keep EasyList, EasyPrivacy and Fanboy's
+   Annoyances enabled (these are the defaults).
+3. **Settings → Filter assets**: leave the defaults enabled.
 
-### 2. Bundled MV3 extension
+No Chitralipi-specific setup needed. It uses a real content-blocking engine
+rather than request matching, so it also handles the cosmetic and scriptlet
+rules our extension skips.
+
+### 3. Bundled MV3 extension
 
 Folder: `browser-extension/`. Blocks requests via `declarativeNetRequest`, so
 nothing is even sent.
@@ -139,20 +144,6 @@ translated — cosmetic (`##`) and scriptlet (`#$#`) rules are skipped, and any
 line with a negated option (`$~script`) is skipped rather than risk
 over-blocking. Rules the translator cannot represent safely are ignored, so
 coverage is narrower than uBlock's but never breaks playback.
-
-### 3. uBlock Origin
-
-If you install only one thing, install this.
-
-1. Install [uBlock Origin](https://ublockorigin.com/) from your browser's
-   official store.
-2. **Settings → Filter lists**: keep EasyList, EasyPrivacy and Fanboy's
-   Annoyances enabled (these are the defaults).
-3. **Settings → Filter assets**: leave the defaults enabled.
-
-No Chitralipi-specific setup needed. It uses a real content-blocking engine
-rather than request matching, so it also handles the cosmetic and scriptlet
-rules our extension skips.
 
 ## Verifying it works
 

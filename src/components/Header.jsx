@@ -4,6 +4,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
 import SearchForm from "@/components/SearchForm";
+import RouteProgress from "@/components/RouteProgress";
+import IntentLink from "@/components/IntentLink";
 import { IconClose, IconGrid, IconSearch } from "@/components/icons";
 
 /**
@@ -87,14 +89,14 @@ export default function Header() {
         }`}
       >
         <div className="shell flex h-(--header-h) items-center gap-4">
-          <Link href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Chitralipi home">
+          <IntentLink href="/" className="group flex shrink-0 items-center gap-2.5" aria-label="Chitralipi home">
             <span className="grid size-8 place-items-center rounded-[10px] bg-linear-to-br from-chit-300 via-chit-500 to-chit-600 text-ink-950 shadow-[0_2px_10px_-2px_rgba(217,162,83,0.5)] transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover:scale-105">
               <IconGrid className="size-4.5" />
             </span>
             <span className="font-display text-[19px] leading-none tracking-tight text-ink-100">
               Chitralipi
             </span>
-          </Link>
+          </IntentLink>
 
           {/* Desktop: inline search. Mobile: the icon routes to /search.
               SearchForm reads useSearchParams, so it needs a Suspense
@@ -117,7 +119,7 @@ export default function Header() {
             {NAV.map((item) => {
               const current = isCurrent(item.href);
               return (
-                <Link
+                <IntentLink
                   key={item.href}
                   href={item.href}
                   aria-current={current ? "page" : undefined}
@@ -128,17 +130,17 @@ export default function Header() {
                   }`}
                 >
                   {item.label}
-                </Link>
+                </IntentLink>
               );
             })}
 
-            <Link
+            <IntentLink
               href="/search"
               className="rounded-lg p-2 text-ink-300 transition-colors duration-200 hover:bg-ink-800/70 hover:text-ink-100 md:hidden"
               aria-label="Search"
             >
               <IconSearch className="size-4.5" />
-            </Link>
+            </IntentLink>
 
             <button
               type="button"
@@ -151,6 +153,15 @@ export default function Header() {
             </button>
           </nav>
         </div>
+
+        {/* The route progress bar. Inside the fixed header so it is always on
+            screen and never takes part in layout: it is absolutely positioned
+            against the bar's own bottom edge.
+
+            No Suspense boundary is needed here, unlike SearchForm above. The
+            bar subscribes to the loading boundaries rather than reading the
+            router, so it has no static-generation bailout to opt out of. */}
+        <RouteProgress />
       </header>
 
       {/* Small-screen sheet. Rendered after the bar so it stacks above. */}
@@ -176,7 +187,7 @@ export default function Header() {
             {NAV.map((item) => {
               const current = isCurrent(item.href);
               return (
-                <Link
+                <IntentLink
                   key={item.href}
                   href={item.href}
                   onClick={() => setDrawer(false)}
@@ -187,16 +198,16 @@ export default function Header() {
                 >
                   {item.label}
                   {current && <span className="size-1.5 rounded-full bg-chit-500" />}
-                </Link>
+                </IntentLink>
               );
             })}
-            <Link
+            <IntentLink
               href="/search"
               onClick={() => setDrawer(false)}
               className="border-b border-ink-800/70 py-4 font-display text-2xl text-ink-100 transition-colors hover:text-chit-400"
             >
               Search
-            </Link>
+            </IntentLink>
           </nav>
           <p className="mt-6 text-[11.5px] leading-relaxed text-ink-400">
             Metadata &amp; artwork from TMDB. Not endorsed or certified by TMDB.

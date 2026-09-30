@@ -1,4 +1,4 @@
-import Link from "next/link";
+import IntentLink from "@/components/IntentLink";
 import { IMG, kindOf, scoreOf, titleOf, yearOf } from "@/lib/tmdb";
 import { IconChevronRight, IconPlay, IconStar, IconTv } from "@/components/icons";
 import Rail from "@/components/Rail";
@@ -29,7 +29,7 @@ export default function PosterCard({
   const poster = IMG.poster(item.poster_path);
 
   return (
-    <Link
+    <IntentLink
       href={href}
       className={`group block ${className || "w-[9.5rem] sm:w-[10.5rem] lg:w-[11.5rem]"}`}
       aria-label={`${title}${year ? `, ${year}` : ""}`}
@@ -93,7 +93,7 @@ export default function PosterCard({
           {year && <p className="mt-0.5 text-[11px] text-ink-400 tabular-nums">{year}</p>}
         </>
       )}
-    </Link>
+    </IntentLink>
   );
 }
 /**
@@ -109,14 +109,14 @@ export function SectionHead({ title, kicker, href, cta = "See all" }) {
       <div className="min-w-0">
         {kicker && <p className="eyebrow text-chit-600">{kicker}</p>}
         <h2 className="display mt-1 text-[22px] text-ink-100 sm:text-[26px]">
-          <Link href={href ?? "#"} className="transition-colors duration-200 hover:text-chit-300">
+          <IntentLink href={href ?? "#"} className="transition-colors duration-200 hover:text-chit-300">
             {title}
-          </Link>
+          </IntentLink>
         </h2>
       </div>
 
       {href && (
-        <Link
+        <IntentLink
           href={href}
           className="group/cta mb-1 flex shrink-0 items-center gap-1.5 text-[12.5px] font-medium text-ink-300 transition-colors duration-200 ease-[var(--ease-standard)] hover:text-chit-400"
         >
@@ -124,7 +124,7 @@ export function SectionHead({ title, kicker, href, cta = "See all" }) {
           <span className="inline-block transition-transform duration-300 ease-[var(--ease-emphasised)] group-hover/cta:translate-x-1">
             <IconChevronRight className="size-3.5" />
           </span>
-        </Link>
+        </IntentLink>
       )}
     </div>
   );
