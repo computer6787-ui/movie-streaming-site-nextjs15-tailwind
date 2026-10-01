@@ -52,10 +52,12 @@ export default function TVPlayer({ tmdbId, season, episode, title, poster }) {
         </p>
         
         {isClient && (
-          <ProviderSwitcher
-            currentProvider={provider}
-            onChange={handleProviderChange}
-          />
+          <div className="ml-auto sm:ml-0">
+            <ProviderSwitcher
+              currentProvider={provider}
+              onChange={handleProviderChange}
+            />
+          </div>
         )}
       </div>
 

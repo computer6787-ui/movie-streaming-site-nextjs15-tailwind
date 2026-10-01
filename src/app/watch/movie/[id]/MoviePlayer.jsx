@@ -52,10 +52,12 @@ export default function MoviePlayer({ tmdbId, title, poster }) {
         </p>
         
         {isClient && (
-          <ProviderSwitcher
-            currentProvider={provider}
-            onChange={handleProviderChange}
-          />
+          <div className="ml-auto sm:ml-0">
+            <ProviderSwitcher
+              currentProvider={provider}
+              onChange={handleProviderChange}
+            />
+          </div>
         )}
       </div>
 

@@ -70,7 +70,7 @@ export default function ProviderSwitcher({ currentProvider, onChange }) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2 min-w-[270px] overflow-hidden rounded-lg border border-ink-700 bg-ink-900/95 backdrop-blur-md [box-shadow:var(--elev-3)]">
+        <div className="absolute right-0 top-full z-50 mt-2 w-[calc(100vw-2.5rem)] max-w-xs sm:w-auto sm:min-w-[280px] overflow-hidden rounded-lg border border-ink-700 bg-ink-900/95 backdrop-blur-md [box-shadow:var(--elev-3)]">
           <div className="p-1.5 space-y-0.5">
             {PROVIDERS.map((provider) => (
               <button
@@ -79,13 +79,13 @@ export default function ProviderSwitcher({ currentProvider, onChange }) {
                   onChange(provider.id);
                   setIsOpen(false);
                 }}
-                className={`flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-[12px] font-medium transition-colors duration-150 ${
+                className={`flex w-full items-center justify-between gap-2 rounded-md px-2.5 py-2 text-left text-[12px] font-medium transition-colors duration-150 ${
                   currentProvider === provider.id
                     ? "bg-chit-500/20 text-chit-400"
                     : "text-ink-300 hover:bg-ink-800/80 hover:text-ink-100"
                 }`}
               >
-                <div className="flex items-center gap-2 min-w-0">
+                <div className="flex items-center gap-1.5 min-w-0 flex-1">
                   {currentProvider === provider.id ? (
                     <svg 
                       className="size-3.5 shrink-0 text-chit-400" 
@@ -103,13 +103,13 @@ export default function ProviderSwitcher({ currentProvider, onChange }) {
                   )}
                   <span className="truncate font-medium">{provider.name}</span>
                   {provider.default && (
-                    <span className="rounded bg-chit-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-chit-400 uppercase tracking-wider">
+                    <span className="shrink-0 rounded bg-chit-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-chit-400 uppercase tracking-wider">
                       Default
                     </span>
                   )}
                 </div>
                 {provider.tag && (
-                  <span className="shrink-0 rounded bg-ink-800/80 px-1.5 py-0.5 text-[10px] font-normal text-ink-400">
+                  <span className="shrink-0 rounded bg-ink-800/80 px-1.5 py-0.5 text-[9.5px] font-normal text-ink-400 whitespace-nowrap">
                     {provider.tag}
                   </span>
                 )}
