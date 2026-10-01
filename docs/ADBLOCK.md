@@ -3,11 +3,14 @@
 ## Why the site cannot fix this itself
 
 `/watch/[id]` embeds the player in a **cross-origin iframe**. The default source
-is Filmu:
+is CineSrc:
 
 ```jsx
-<iframe src="https://embed.filmu.in/movie/{id}" />
+<iframe src="https://cinesrc.st/embed/movie/{id}" sandbox="allow-scripts allow-same-origin allow-forms allow-presentation" />
 ```
+
+> 🛡️ **Default Protection with CineSrc & Chitralipi Blocker**:
+> **CineSrc** is our default provider, pre-fortified with native iframe sandboxing and custom-shielded by the invincible **Chitralipi Ad Blocker** to vaporize 99.9% of popups, rogue redirect scripts, and invasive ad trackers into digital dust before they even dare to spawn. For the absolute cleanest, god-tier, zero-interruption cinema experience in the galaxy, just stick with **CineSrc**!
 
 The same-origin policy means `chitralipi` code cannot read or modify anything
 inside that frame. Popunders, overlay click-bait and ad iframes are injected by

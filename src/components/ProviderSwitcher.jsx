@@ -70,8 +70,8 @@ export default function ProviderSwitcher({ currentProvider, onChange }) {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full z-50 mt-2 min-w-[180px] overflow-hidden rounded-lg border border-ink-700 bg-ink-900/95 backdrop-blur-md [box-shadow:var(--elev-3)]">
-          <div className="p-1.5">
+        <div className="absolute right-0 top-full z-50 mt-2 min-w-[270px] overflow-hidden rounded-lg border border-ink-700 bg-ink-900/95 backdrop-blur-md [box-shadow:var(--elev-3)]">
+          <div className="p-1.5 space-y-0.5">
             {PROVIDERS.map((provider) => (
               <button
                 key={provider.id}
@@ -79,31 +79,38 @@ export default function ProviderSwitcher({ currentProvider, onChange }) {
                   onChange(provider.id);
                   setIsOpen(false);
                 }}
-                className={`flex w-full items-center gap-2.5 rounded-md px-3 py-2.5 text-left text-[12px] font-medium transition-colors duration-150 ${
+                className={`flex w-full items-center justify-between gap-3 rounded-md px-3 py-2 text-left text-[12px] font-medium transition-colors duration-150 ${
                   currentProvider === provider.id
                     ? "bg-chit-500/20 text-chit-400"
                     : "text-ink-300 hover:bg-ink-800/80 hover:text-ink-100"
                 }`}
               >
-                {currentProvider === provider.id && (
-                  <svg 
-                    className="size-3.5 shrink-0" 
-                    fill="currentColor" 
-                    viewBox="0 0 20 20"
-                  >
-                    <path 
-                      fillRule="evenodd" 
-                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
-                      clipRule="evenodd" 
-                    />
-                  </svg>
-                )}
-                <span className={currentProvider !== provider.id ? 'ml-6' : ''}>
-                  {provider.name}
-                </span>
-                {provider.default && (
-                  <span className="ml-auto text-[10px] text-ink-500 uppercase tracking-wider">
-                    Default
+                <div className="flex items-center gap-2 min-w-0">
+                  {currentProvider === provider.id ? (
+                    <svg 
+                      className="size-3.5 shrink-0 text-chit-400" 
+                      fill="currentColor" 
+                      viewBox="0 0 20 20"
+                    >
+                      <path 
+                        fillRule="evenodd" 
+                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" 
+                        clipRule="evenodd" 
+                      />
+                    </svg>
+                  ) : (
+                    <span className="size-3.5 shrink-0" aria-hidden="true" />
+                  )}
+                  <span className="truncate font-medium">{provider.name}</span>
+                  {provider.default && (
+                    <span className="rounded bg-chit-500/20 px-1.5 py-0.5 text-[9px] font-semibold text-chit-400 uppercase tracking-wider">
+                      Default
+                    </span>
+                  )}
+                </div>
+                {provider.tag && (
+                  <span className="shrink-0 rounded bg-ink-800/80 px-1.5 py-0.5 text-[10px] font-normal text-ink-400">
+                    {provider.tag}
                   </span>
                 )}
               </button>

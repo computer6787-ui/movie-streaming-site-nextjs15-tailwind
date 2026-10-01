@@ -73,7 +73,7 @@ template is not.
 Providers are listed in `src/lib/providers.js`. The one entry with
 `default: true` is what loads on a watch page, and users can override it
 per-browser with the "Switch Provider" control (remembered in
-`localStorage`). **Filmu** is the current default. To change it, move
+`localStorage`). **CineSrc** is the current default. To change it, move
 `default: true` to another entry — no other file needs to change.
 
 ## 🔧 Tech Stack

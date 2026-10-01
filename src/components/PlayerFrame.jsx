@@ -37,11 +37,13 @@ export default function PlayerFrame({
   title,
   poster = null,
   label = "Loading player",
+  provider = null,
   providerName = null,
 }) {
   // Starts `false` so the skeleton is present in the server-rendered HTML.
   const [loaded, setLoaded] = useState(false);
   const timer = useRef(null);
+  const currentProviderName = provider?.name || providerName;
 
   const handleLoad = useCallback(() => {
     if (timer.current) {
@@ -63,7 +65,7 @@ export default function PlayerFrame({
   return (
     <div className="relative size-full">
       <iframe
-        key={src}
+        key={`${provider?.id || ""}-${src}`}
         src={src}
         title={title}
         onLoad={handleLoad}
@@ -72,6 +74,11 @@ export default function PlayerFrame({
         allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
         referrerPolicy="origin-when-cross-origin"
         loading="lazy"
+        sandbox={
+          provider?.sandbox
+            ? "allow-scripts allow-same-origin allow-forms allow-presentation"
+            : undefined
+        }
       />
 
       {/* Decorative overlay. Never interactive, gone the moment it loads. */}
@@ -115,7 +122,7 @@ export default function PlayerFrame({
                 <i />
                 <i />
               </span>
-              {providerName ? `Connecting to ${providerName}` : 'Connecting to the source'}
+              {currentProviderName ? `Connecting to ${currentProviderName}` : 'Connecting to the source'}
             </p>
           </div>
         </div>

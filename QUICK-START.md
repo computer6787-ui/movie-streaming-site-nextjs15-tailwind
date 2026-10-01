@@ -49,8 +49,8 @@ Wait 10-15 seconds for the server to start, then open
 The site throws a hard error if the TMDB key is missing, so set it in `.env`
 before running. On Render, set it in the dashboard (see `render.yaml`).
 
-**Default player source**: Filmu. If it does not play, use "Switch Provider"
-on the watch page to try MultiEmbed, VidCore, VidSrc or CineSrc.
+**Default player source**: CineSrc. If it does not play, use "Switch Provider"
+on the watch page to try Filmu, MultiEmbed, VidCore or VidSrc.
 
 ---
 

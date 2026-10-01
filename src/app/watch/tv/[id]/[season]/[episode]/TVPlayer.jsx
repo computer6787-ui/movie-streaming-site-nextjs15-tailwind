@@ -66,7 +66,7 @@ export default function TVPlayer({ tmdbId, season, episode, title, poster }) {
             title={`${title} — Season ${season}, Episode ${episode}`}
             poster={poster}
             label={`Loading S${season} · E${episode}`}
-            providerName={providerData.name}
+            provider={providerData}
           />
         ) : (
           <div className="grid size-full place-items-center p-6 text-center text-[13px] text-ink-400">
@@ -95,9 +95,34 @@ export default function TVPlayer({ tmdbId, season, episode, title, poster }) {
             <h3 className="text-[13px] font-semibold text-amber-300 mb-1">
               Getting popup ads or redirects?
             </h3>
-            <p className="text-[12px] leading-relaxed text-amber-200/80 mb-3">
-              Third-party players inject ads that redirect you away. We can't block them directly due to browser security.
+            <p className="text-[12px] leading-relaxed text-amber-200/80 mb-2">
+              Third-party players inject ads that redirect you away. We can&apos;t block them directly due to browser security.
             </p>
+            <button
+              type="button"
+              onClick={() => handleProviderChange("cinesrc")}
+              className="group mb-3 flex w-full items-center justify-between gap-2 rounded-md border border-amber-500/25 bg-amber-500/10 px-2.5 py-1.5 text-left text-[11.5px] leading-relaxed text-amber-300 transition-all duration-200 hover:border-amber-400/40 hover:bg-amber-500/20 hover:text-amber-200 active:scale-[0.99]"
+            >
+              <span className="flex items-center gap-1.5">
+                <span className="shrink-0 text-amber-400">⚡</span>
+                <span>
+                  <span className="font-medium text-amber-200">Tip:</span> Switch to{" "}
+                  <strong className="font-semibold text-amber-100 underline decoration-amber-400/60 underline-offset-2">
+                    CineSrc
+                  </strong>{" "}
+                  &mdash; defaultly protected by Chitralipi Blocker to vaporize popups &amp; redirects!
+                </span>
+              </span>
+              {provider === "cinesrc" ? (
+                <span className="shrink-0 rounded bg-amber-500/20 px-1.5 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-amber-300">
+                  Active
+                </span>
+              ) : (
+                <span className="shrink-0 rounded bg-amber-500/30 px-1.5 py-0.5 text-[10px] font-semibold text-amber-200 group-hover:bg-amber-500/40">
+                  Select
+                </span>
+              )}
+            </button>
             <a 
               href="/adblock"
               className="inline-flex items-center gap-1.5 rounded-md bg-amber-500/20 px-3 py-1.5 text-[11px] font-medium text-amber-300 transition-all duration-200 hover:bg-amber-500/30 hover:text-amber-200"
